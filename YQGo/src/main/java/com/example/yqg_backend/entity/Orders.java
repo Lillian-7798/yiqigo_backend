@@ -39,7 +39,8 @@ public class Orders {
     @Column(name = "userId")
     private Integer userId;
 
-    @Transient
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="orderId")
     private List<OrderItem> orderItems;
 
     public int getOrderId() {
