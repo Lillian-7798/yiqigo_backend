@@ -44,7 +44,7 @@ public class Dialog {
     }
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="messageId")
+    @JoinColumn(name="dialogId")
     private List<Message> messages;
 
     @Override
