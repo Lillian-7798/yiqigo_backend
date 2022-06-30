@@ -22,15 +22,15 @@ public class Users {
     private String address;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="orderId")
+    @JoinColumn(name="userId")
     private List<Orders> orders;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="dialogId")
+    @JoinColumn(name="userId")
     private List<Dialog> dialogs;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="groupBuyId")
+    @JoinColumn(name="userId")
     private List<Groupbuy> groupbuys;
 
     public int getUserId() {
