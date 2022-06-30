@@ -43,7 +43,8 @@ public class Dialog {
         this.userId2 = userId2;
     }
 
-    @Transient
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="messageId")
     private List<Message> messages;
 
     @Override
@@ -59,4 +60,3 @@ public class Dialog {
         return Objects.hash(dialogId, userId1, userId2);
     }
 }
-
