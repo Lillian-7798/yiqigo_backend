@@ -1,52 +1,92 @@
 package com.example.yqg_backend.entity;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.Objects;
+import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
+@Table(name = "groupbuy")
 public class Groupbuy {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @javax.persistence.Column(name = "groupBuyId")
-    private int groupBuyId;
+    @Column(name = "groupBuyId", nullable = false)
+    private Integer id;
 
-    public int getGroupBuyId() {
-        return groupBuyId;
-    }
-
-    public void setGroupBuyId(int groupBuyId) {
-        this.groupBuyId = groupBuyId;
-    }
-
-    @Basic
-    @Column(name = "title")
+    @Column(name = "title", length = 20)
     private String title;
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    @Basic
-    @Column(name = "description")
+    @Column(name = "description", length = 100)
     private String description;
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    @Basic
     @Column(name = "logisticsType")
     private Integer logisticsType;
+
+    @Column(name = "startTime")
+    private Instant startTime;
+
+    @Column(name = "endTime")
+    private Instant endTime;
+
+    @Column(name = "isSecKill")
+    private Boolean isSecKill;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId")
+    private User user;
+
+    @OneToMany(mappedBy = "groupBuy")
+    private Set<Order> orders = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "groupBuy")
+    private Set<Groupbuyitem> groupbuyitems = new LinkedHashSet<>();
+
+    public Set<Groupbuyitem> getGroupbuyitems() {
+        return groupbuyitems;
+    }
+
+    public void setGroupbuyitems(Set<Groupbuyitem> groupbuyitems) {
+        this.groupbuyitems = groupbuyitems;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Boolean getIsSecKill() {
+        return isSecKill;
+    }
+
+    public void setIsSecKill(Boolean isSecKill) {
+        this.isSecKill = isSecKill;
+    }
+
+    public Instant getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Instant endTime) {
+        this.endTime = endTime;
+    }
+
+    public Instant getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Instant startTime) {
+        this.startTime = startTime;
+    }
 
     public Integer getLogisticsType() {
         return logisticsType;
@@ -56,68 +96,29 @@ public class Groupbuy {
         this.logisticsType = logisticsType;
     }
 
-    @Basic
-    @Column(name = "startTime")
-    private Timestamp startTime;
-
-    public Timestamp getStartTime() {
-        return startTime;
+    public String getDescription() {
+        return description;
     }
 
-    public void setStartTime(Timestamp startTime) {
-        this.startTime = startTime;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    @Basic
-    @Column(name = "endTime")
-    private Timestamp endTime;
-
-    public Timestamp getEndTime() {
-        return endTime;
+    public String getTitle() {
+        return title;
     }
 
-    public void setEndTime(Timestamp endTime) {
-        this.endTime = endTime;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    @Basic
-    @Column(name = "isSecKill")
-    private Byte isSecKill;
-
-    public Byte getIsSecKill() {
-        return isSecKill;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIsSecKill(Byte isSecKill) {
-        this.isSecKill = isSecKill;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    @Basic
-    @Column(name = "userId")
-    private Integer userId;
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="groupBuyId")
-    private List<GroupBuyItem> groupBuyItems;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Groupbuy groupbuy = (Groupbuy) o;
-        return groupBuyId == groupbuy.groupBuyId && Objects.equals(title, groupbuy.title) && Objects.equals(description, groupbuy.description) && Objects.equals(logisticsType, groupbuy.logisticsType) && Objects.equals(startTime, groupbuy.startTime) && Objects.equals(endTime, groupbuy.endTime) && Objects.equals(isSecKill, groupbuy.isSecKill) && Objects.equals(userId, groupbuy.userId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(groupBuyId, title, description, logisticsType, startTime, endTime, isSecKill, userId);
-    }
+//TODO [JPA Buddy] generate columns from DB
 }
