@@ -104,7 +104,8 @@ public class Groupbuy {
         this.userId = userId;
     }
 
-    @Transient
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="groupBuyId")
     private List<GroupBuyItem> groupBuyItems;
 
     @Override
