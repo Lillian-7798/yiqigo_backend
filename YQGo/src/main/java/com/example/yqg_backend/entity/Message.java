@@ -1,38 +1,38 @@
 package com.example.yqg_backend.entity;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
+@Table(name = "message")
 public class Message {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "messageId")
-    private int messageId;
-    @Basic
-    @Column(name = "dialogId")
-    private Integer dialogId;
-    @Basic
-    @Column(name = "content")
+    @Column(name = "messageId", nullable = false)
+    private Integer id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dialogId")
+    private Dialog dialog;
+
+    @Column(name = "content", length = 200)
     private String content;
-    @Basic
+
     @Column(name = "userId")
     private Integer userId;
 
-    public int getMessageId() {
-        return messageId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setMessageId(int messageId) {
-        this.messageId = messageId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Integer getDialogId() {
-        return dialogId;
+    public Dialog getDialog() {
+        return dialog;
     }
 
-    public void setDialogId(Integer dialogId) {
-        this.dialogId = dialogId;
+    public void setDialog(Dialog dialog) {
+        this.dialog = dialog;
     }
 
     public String getContent() {
@@ -51,16 +51,4 @@ public class Message {
         this.userId = userId;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Message message = (Message) o;
-        return messageId == message.messageId && Objects.equals(dialogId, message.dialogId) && Objects.equals(content, message.content) && Objects.equals(userId, message.userId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(messageId, dialogId, content, userId);
-    }
 }
