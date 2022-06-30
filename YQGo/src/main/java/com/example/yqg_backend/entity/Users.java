@@ -21,13 +21,16 @@ public class Users {
     @Column(name = "address")
     private String address;
 
-    @Transient
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="orderId")
     private List<Orders> orders;
 
-    @Transient
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="dialogId")
     private List<Dialog> dialogs;
 
-    @Transient
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="groupBuyId")
     private List<Groupbuy> groupbuys;
 
     public int getUserId() {
