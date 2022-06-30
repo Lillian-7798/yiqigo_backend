@@ -1,62 +1,58 @@
 package com.example.yqg_backend.entity;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.Objects;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
+@Table(name = "dialog")
 public class Dialog {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @javax.persistence.Column(name = "dialogId")
-    private int dialogId;
+    @Column(name = "dialogId", nullable = false)
+    private Integer id;
 
-    public int getDialogId() {
-        return dialogId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId1")
+    private User userId1;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId2")
+    private User userId2;
+
+    @OneToMany(mappedBy = "dialog")
+    private Set<Message> messages = new LinkedHashSet<>();
+
+    public Set<Message> getMessages() {
+        return messages;
     }
 
-    public void setDialogId(int dialogId) {
-        this.dialogId = dialogId;
+    public void setMessages(Set<Message> messages) {
+        this.messages = messages;
     }
 
-    @Basic
-    @Column(name = "userId1")
-    private Integer userId1;
-
-    public Integer getUserId1() {
-        return userId1;
-    }
-
-    public void setUserId1(Integer userId1) {
-        this.userId1 = userId1;
-    }
-
-    @Basic
-    @Column(name = "userId2")
-    private Integer userId2;
-
-    public Integer getUserId2() {
+    public User getUserId2() {
         return userId2;
     }
 
-    public void setUserId2(Integer userId2) {
+    public void setUserId2(User userId2) {
         this.userId2 = userId2;
     }
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="dialogId")
-    private List<Message> messages;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Dialog dialog = (Dialog) o;
-        return dialogId == dialog.dialogId && Objects.equals(userId1, dialog.userId1) && Objects.equals(userId2, dialog.userId2);
+    public User getUserId1() {
+        return userId1;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(dialogId, userId1, userId2);
+    public void setUserId1(User userId1) {
+        this.userId1 = userId1;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+//TODO [JPA Buddy] generate columns from DB
 }
