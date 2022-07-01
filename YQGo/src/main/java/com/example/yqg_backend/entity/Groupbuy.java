@@ -1,8 +1,11 @@
 package com.example.yqg_backend.entity;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,10 +25,10 @@ public class Groupbuy {
     private Integer logisticsType;
 
     @Column(name = "startTime")
-    private Instant startTime;
+    private Timestamp startTime;
 
     @Column(name = "endTime")
-    private Instant endTime;
+    private Timestamp endTime;
 
     @Column(name = "isSecKill")
     private Boolean isSecKill;
@@ -35,24 +38,24 @@ public class Groupbuy {
     private User user;
 
     @OneToMany(mappedBy = "groupBuy")
-    private Set<Order> orders = new LinkedHashSet<>();
+    private List<Order> orders = new ArrayList();
 
     @OneToMany(mappedBy = "groupBuy")
-    private Set<Groupbuyitem> groupbuyitems = new LinkedHashSet<>();
+    private List<Groupbuyitem> groupbuyitems = new ArrayList();
 
-    public Set<Groupbuyitem> getGroupbuyitems() {
+    public List<Groupbuyitem> getGroupbuyitems() {
         return groupbuyitems;
     }
 
-    public void setGroupbuyitems(Set<Groupbuyitem> groupbuyitems) {
+    public void setGroupbuyitems(List<Groupbuyitem> groupbuyitems) {
         this.groupbuyitems = groupbuyitems;
     }
 
-    public Set<Order> getOrders() {
+    public List<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(Set<Order> orders) {
+    public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
 
@@ -72,19 +75,19 @@ public class Groupbuy {
         this.isSecKill = isSecKill;
     }
 
-    public Instant getEndTime() {
+    public Timestamp getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Instant endTime) {
+    public void setEndTime(Timestamp endTime) {
         this.endTime = endTime;
     }
 
-    public Instant getStartTime() {
+    public Timestamp getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Instant startTime) {
+    public void setStartTime(Timestamp startTime) {
         this.startTime = startTime;
     }
 
