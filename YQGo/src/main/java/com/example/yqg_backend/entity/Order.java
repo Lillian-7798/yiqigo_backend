@@ -1,8 +1,11 @@
 package com.example.yqg_backend.entity;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -34,7 +37,7 @@ public class Order {
     private Integer number;
 
     @Column(name = "time")
-    private Instant time;
+    private Timestamp time;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
@@ -45,13 +48,13 @@ public class Order {
     private Groupbuy groupBuy;
 
     @OneToMany(mappedBy = "order")
-    private Set<Orderitem> orderitems = new LinkedHashSet<>();
+    private List<Orderitem> orderitems = new ArrayList();
 
-    public Set<Orderitem> getOrderitems() {
+    public List<Orderitem> getOrderitems() {
         return orderitems;
     }
 
-    public void setOrderitems(Set<Orderitem> orderitems) {
+    public void setOrderitems(List<Orderitem> orderitems) {
         this.orderitems = orderitems;
     }
 
@@ -71,11 +74,11 @@ public class Order {
         this.user = user;
     }
 
-    public Instant getTime() {
+    public Timestamp getTime() {
         return time;
     }
 
-    public void setTime(Instant time) {
+    public void setTime(Timestamp time) {
         this.time = time;
     }
 
