@@ -9,6 +9,7 @@ import javax.persistence.Table;
 @Table(name = "userauth")
 public class Userauth {
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "userId", nullable = false)
     private Integer id;
 
