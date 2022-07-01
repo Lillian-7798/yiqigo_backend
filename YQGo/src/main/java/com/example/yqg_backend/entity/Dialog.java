@@ -1,7 +1,9 @@
 package com.example.yqg_backend.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,13 +22,13 @@ public class Dialog {
     private User userId2;
 
     @OneToMany(mappedBy = "dialog")
-    private Set<Message> messages = new LinkedHashSet<>();
+    private List<Message> messages = new ArrayList();
 
-    public Set<Message> getMessages() {
+    public List<Message> getMessages() {
         return messages;
     }
 
-    public void setMessages(Set<Message> messages) {
+    public void setMessages(List<Message> messages) {
         this.messages = messages;
     }
 
