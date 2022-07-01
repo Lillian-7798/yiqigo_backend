@@ -1,7 +1,9 @@
 package com.example.yqg_backend.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,46 +23,46 @@ public class User {
     private String address;
 
     @OneToMany(mappedBy = "user")
-    private Set<Groupbuy> groupbuys = new LinkedHashSet<>();
+    private List<Groupbuy> groupbuys = new ArrayList();
 
     @OneToMany(mappedBy = "user")
-    private Set<Order> orders = new LinkedHashSet<>();
+    private List<Order> orders = new ArrayList();
 
     @OneToMany(mappedBy = "userId1")
-    private Set<Dialog> dialogs1 = new LinkedHashSet<>();
+    private List<Dialog> dialogs1 = new ArrayList();
 
     @OneToMany(mappedBy = "userId2")
-    private Set<Dialog> dialogs2 = new LinkedHashSet<>();
+    private List<Dialog> dialogs2 = new ArrayList();
 
-    public Set<Dialog> getDialogs2() {
+    public List<Dialog> getDialogs2() {
         return dialogs2;
     }
 
-    public void setDialogs2(Set<Dialog> dialogs2) {
+    public void setDialogs2(List<Dialog> dialogs2) {
         this.dialogs2 = dialogs2;
     }
 
-    public Set<Dialog> getDialogs1() {
+    public List<Dialog> getDialogs1() {
         return dialogs1;
     }
 
-    public void setDialogs1(Set<Dialog> dialogs1) {
+    public void setDialogs1(List<Dialog> dialogs1) {
         this.dialogs1 = dialogs1;
     }
 
-    public Set<Order> getOrders() {
+    public List<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(Set<Order> orders) {
+    public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
 
-    public Set<Groupbuy> getGroupbuys() {
+    public List<Groupbuy> getGroupbuys() {
         return groupbuys;
     }
 
-    public void setGroupbuys(Set<Groupbuy> groupbuys) {
+    public void setGroupbuys(List<Groupbuy> groupbuys) {
         this.groupbuys = groupbuys;
     }
 
