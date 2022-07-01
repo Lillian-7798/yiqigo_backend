@@ -1,7 +1,9 @@
 package com.example.yqg_backend.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,10 +26,10 @@ public class Good {
     private String images;
 
     @OneToMany(mappedBy = "goods")
-    private Set<Orderitem> orderitems = new LinkedHashSet<>();
+    private List<Orderitem> orderitems = new ArrayList();
 
     @OneToMany(mappedBy = "goods")
-    private Set<Groupbuyitem> groupbuyitems = new LinkedHashSet<>();
+    private List<Groupbuyitem> groupbuyitems = new ArrayList();
 
     public Integer getId() {
         return id;
@@ -69,19 +71,19 @@ public class Good {
         this.images = images;
     }
 
-    public Set<Orderitem> getOrderitems() {
+    public List<Orderitem> getOrderitems() {
         return orderitems;
     }
 
-    public void setOrderitems(Set<Orderitem> orderitems) {
+    public void setOrderitems(List<Orderitem> orderitems) {
         this.orderitems = orderitems;
     }
 
-    public Set<Groupbuyitem> getGroupbuyitems() {
+    public List<Groupbuyitem> getGroupbuyitems() {
         return groupbuyitems;
     }
 
-    public void setGroupbuyitems(Set<Groupbuyitem> groupbuyitems) {
+    public void setGroupbuyitems(List<Groupbuyitem> groupbuyitems) {
         this.groupbuyitems = groupbuyitems;
     }
 
