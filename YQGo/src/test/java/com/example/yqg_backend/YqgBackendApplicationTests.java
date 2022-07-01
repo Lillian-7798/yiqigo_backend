@@ -9,5 +9,4 @@ class YqgBackendApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
