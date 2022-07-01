@@ -1,14 +1,11 @@
 package com.example.yqg_backend.controller;
 
 import com.example.yqg_backend.entity.Dialog;
-import com.example.yqg_backend.entity.Orders;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class MessageController {
     @RequestMapping(value = "/getDialogsByUser",method = RequestMethod.GET)

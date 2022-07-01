@@ -2,11 +2,8 @@ package com.example.yqg_backend.entity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "orders")
@@ -49,7 +46,7 @@ public class Order {
     private Groupbuy groupBuy;
 
     @OneToMany(mappedBy = "order")
-    private List<Orderitem> orderitems = new ArrayList();
+    private List<Orderitem> orderitems = new ArrayList<>();
 
     public List<Orderitem> getOrderitems() {
         return orderitems;

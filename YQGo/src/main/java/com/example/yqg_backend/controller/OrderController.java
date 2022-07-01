@@ -1,24 +1,21 @@
 package com.example.yqg_backend.controller;
 
-import com.example.yqg_backend.entity.Orders;
-import io.swagger.models.auth.In;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.yqg_backend.entity.Order;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class OrderController {
 
     @RequestMapping(value = "/getOrderByUser",method = RequestMethod.GET)
-    public Orders getOrderByUser(@RequestParam("userID") Integer userID){
+    public Order getOrderByUser(@RequestParam("userID") Integer userID){
         return null;
     }
 
     @RequestMapping(value = "/getOrderDetail",method = RequestMethod.GET)
-    public Orders getOrderDetail(@RequestParam("orderID") Integer orderID){
+    public Order getOrderDetail(@RequestParam("orderID") Integer orderID){
         return null;
     }
 
@@ -33,7 +30,7 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/getOrdersByGroupBuy",method = RequestMethod.GET)
-    public List<Orders> getOrdersByGroupBuy(@RequestParam("GroupBuyID") Integer GBID){
+    public List<Order> getOrdersByGroupBuy(@RequestParam("GroupBuyID") Integer GBID){
         return null;
     }
 

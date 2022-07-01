@@ -1,15 +1,13 @@
 package com.example.yqg_backend.controller;
 
 import com.example.yqg_backend.entity.Groupbuy;
-import com.example.yqg_backend.entity.Orders;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.yqg_backend.entity.Order;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class GroupBuyController {
 
@@ -61,17 +59,17 @@ public class GroupBuyController {
     }
 
     @RequestMapping(value = "/getGroupBuyByLeader",method = RequestMethod.GET)
-    public List<Orders> getGroupBuyByLeader(@RequestParam("userId") Integer userId){
+    public List<Order> getGroupBuyByLeader(@RequestParam("userId") Integer userId){
         return null;
     }
 
     @RequestMapping(value = "/getGroupBuyByGoodsName",method = RequestMethod.GET)
-    public List<Orders> getGroupBuyByGoodsName(@RequestParam("name") String name){
+    public List<Order> getGroupBuyByGoodsName(@RequestParam("name") String name){
         return null;
     }
 
     @RequestMapping(value = "/getGroupBuyStatistics",method = RequestMethod.GET)
-    public List<Orders> getGroupBuyStatistics(@RequestParam("groupBuyId") Integer groupBuyId){
+    public List<Order> getGroupBuyStatistics(@RequestParam("groupBuyId") Integer groupBuyId){
         return null;
     }
 }

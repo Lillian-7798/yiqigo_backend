@@ -2,9 +2,7 @@ package com.example.yqg_backend.entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "goods")
@@ -27,10 +25,10 @@ public class Good {
     private String images;
 
     @OneToMany(mappedBy = "goods")
-    private List<Orderitem> orderitems = new ArrayList();
+    private List<Orderitem> orderitems = new ArrayList<>();
 
     @OneToMany(mappedBy = "goods")
-    private List<Groupbuyitem> groupbuyitems = new ArrayList();
+    private List<Groupbuyitem> groupbuyitems = new ArrayList<>();
 
     public Integer getId() {
         return id;

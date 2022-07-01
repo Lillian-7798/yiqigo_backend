@@ -34,11 +34,9 @@ public class OrderitemId implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || org.springframework.data.util.ProxyUtils.getUserClass(this) != org.springframework.data.util.ProxyUtils.getUserClass(o))
-            return false;
-        OrderitemId entity = (OrderitemId) o;
-        return Objects.equals(this.orderId, entity.orderId) &&
-                Objects.equals(this.userId, entity.userId);
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderitemId that = (OrderitemId) o;
+        return userId.equals(that.userId) && orderId.equals(that.orderId);
     }
 
     @Override

@@ -1,16 +1,14 @@
 package com.example.yqg_backend.controller;
 
-import com.example.yqg_backend.entity.Users;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.yqg_backend.entity.User;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 public class UserController {
 
     @RequestMapping(value = "/getUser",method = RequestMethod.GET)
-    public Users getUser(@RequestParam("userID") Integer userID)
+    public User getUser(@RequestParam("userID") Integer userID)
     {
         return null;
     }

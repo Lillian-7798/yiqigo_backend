@@ -2,7 +2,6 @@ package com.example.yqg_backend.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -34,16 +33,15 @@ public class GroupbuyitemId implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || org.springframework.data.util.ProxyUtils.getUserClass(this) != org.springframework.data.util.ProxyUtils.getUserClass(o))
-            return false;
-        GroupbuyitemId entity = (GroupbuyitemId) o;
-        return Objects.equals(this.groupBuyId, entity.groupBuyId) &&
-                Objects.equals(this.userId, entity.userId);
+        if (o == null || getClass() != o.getClass()) return false;
+        GroupbuyitemId that = (GroupbuyitemId) o;
+        return userId.equals(that.userId) && groupBuyId.equals(that.groupBuyId);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(groupBuyId, userId);
     }
+
 
 }
