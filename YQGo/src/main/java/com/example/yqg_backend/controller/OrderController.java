@@ -19,13 +19,16 @@ public class OrderController {
         return null;
     }
 
-//    addOrder这里不知道前端的商品列表要怎么传进来
+    // goods为对象数组，包括goodsId,count
     @RequestMapping(value = "/addOrder",method = RequestMethod.POST)
-    public boolean addOrder(@RequestParam("goodsList") List<Object> goods,
+    public boolean addOrder(@RequestBody List<Object> goods,
+                            @RequestParam("userId") Integer userid,
                             @RequestParam("logisticsType") Integer logis,
                             @RequestParam("diliverAddr") String diliverAddr,
                             @RequestParam("receiveAddr") String receiveAddr,
-                            @RequestParam("GroupBuyID") Integer GBID){
+                            @RequestParam("GroupBuyID") Integer GBID,
+                            @RequestParam("note") String note){
+
         return true;
     }
 

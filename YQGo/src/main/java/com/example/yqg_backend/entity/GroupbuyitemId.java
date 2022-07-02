@@ -1,5 +1,7 @@
 package com.example.yqg_backend.entity;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
@@ -7,20 +9,12 @@ import java.util.Objects;
 
 @Embeddable
 public class GroupbuyitemId implements Serializable {
-    private static final long serialVersionUID = -5187705943395139675L;
-    @Column(name = "userId", nullable = false)
-    private Integer userId;
-
+    private static final long serialVersionUID = 6654422420640750383L;
     @Column(name = "groupBuyId", nullable = false)
     private Integer groupBuyId;
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+    @Column(name = "goodsId", nullable = false)
+    private Integer goodsId;
 
     public Integer getGroupBuyId() {
         return groupBuyId;
@@ -30,18 +24,26 @@ public class GroupbuyitemId implements Serializable {
         this.groupBuyId = groupBuyId;
     }
 
+    public Integer getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        GroupbuyitemId that = (GroupbuyitemId) o;
-        return userId.equals(that.userId) && groupBuyId.equals(that.groupBuyId);
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        GroupbuyitemId entity = (GroupbuyitemId) o;
+        return Objects.equals(this.goodsId, entity.goodsId) &&
+                Objects.equals(this.groupBuyId, entity.groupBuyId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(groupBuyId, userId);
+        return Objects.hash(goodsId, groupBuyId);
     }
-
 
 }

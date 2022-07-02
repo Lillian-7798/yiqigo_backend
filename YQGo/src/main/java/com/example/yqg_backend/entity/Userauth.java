@@ -1,12 +1,14 @@
 package com.example.yqg_backend.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "userauth")
 public class Userauth {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "userId", nullable = false)
     private Integer id;
 

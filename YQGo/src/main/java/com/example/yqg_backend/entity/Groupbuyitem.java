@@ -8,14 +8,15 @@ public class Groupbuyitem {
     @EmbeddedId
     private GroupbuyitemId id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "goodsId")
-    private Good goods;
-
     @MapsId("groupBuyId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "groupBuyId", nullable = false)
     private Groupbuy groupBuy;
+
+    @MapsId("goodsId")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "goodsId", nullable = false)
+    private Good goods;
 
     @Column(name = "inventory")
     private Integer inventory;
@@ -23,20 +24,12 @@ public class Groupbuyitem {
     @Column(name = "cost")
     private Integer cost;
 
-    public Integer getCost() {
-        return cost;
+    public GroupbuyitemId getId() {
+        return id;
     }
 
-    public void setCost(Integer cost) {
-        this.cost = cost;
-    }
-
-    public Integer getInventory() {
-        return inventory;
-    }
-
-    public void setInventory(Integer inventory) {
-        this.inventory = inventory;
+    public void setId(GroupbuyitemId id) {
+        this.id = id;
     }
 
     public Groupbuy getGroupBuy() {
@@ -47,20 +40,28 @@ public class Groupbuyitem {
         this.groupBuy = groupBuy;
     }
 
-    public GroupbuyitemId getId() {
-        return id;
-    }
-
-    public void setId(GroupbuyitemId id) {
-        this.id = id;
-    }
-
     public Good getGoods() {
         return goods;
     }
 
     public void setGoods(Good goods) {
         this.goods = goods;
+    }
+
+    public Integer getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Integer inventory) {
+        this.inventory = inventory;
+    }
+
+    public Integer getCost() {
+        return cost;
+    }
+
+    public void setCost(Integer cost) {
+        this.cost = cost;
     }
 
 }

@@ -1,27 +1,20 @@
 package com.example.yqg_backend.entity;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
 public class OrderitemId implements Serializable {
-    private static final long serialVersionUID = 2702299780197960056L;
-    @Column(name = "userId", nullable = false)
-    private Integer userId;
-
+    private static final long serialVersionUID = -5602090082715981089L;
     @Column(name = "orderId", nullable = false)
     private Integer orderId;
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+    @Column(name = "goodsId", nullable = false)
+    private Integer goodsId;
 
     public Integer getOrderId() {
         return orderId;
@@ -31,17 +24,26 @@ public class OrderitemId implements Serializable {
         this.orderId = orderId;
     }
 
+    public Integer getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        OrderitemId that = (OrderitemId) o;
-        return userId.equals(that.userId) && orderId.equals(that.orderId);
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        OrderitemId entity = (OrderitemId) o;
+        return Objects.equals(this.orderId, entity.orderId) &&
+                Objects.equals(this.goodsId, entity.goodsId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderId, userId);
+        return Objects.hash(orderId, goodsId);
     }
 
 }

@@ -8,24 +8,25 @@ public class Orderitem {
     @EmbeddedId
     private OrderitemId id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "goodsId")
-    private Good goods;
-
     @MapsId("orderId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "orderId", nullable = false)
     private Order order;
 
+    @MapsId("goodsId")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "goodsId", nullable = false)
+    private Good goods;
+
     @Column(name = "count")
     private Integer count;
 
-    public Integer getCount() {
-        return count;
+    public OrderitemId getId() {
+        return id;
     }
 
-    public void setCount(Integer count) {
-        this.count = count;
+    public void setId(OrderitemId id) {
+        this.id = id;
     }
 
     public Order getOrder() {
@@ -36,20 +37,20 @@ public class Orderitem {
         this.order = order;
     }
 
-    public OrderitemId getId() {
-        return id;
-    }
-
-    public void setId(OrderitemId id) {
-        this.id = id;
-    }
-
     public Good getGoods() {
         return goods;
     }
 
     public void setGoods(Good goods) {
         this.goods = goods;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
 }

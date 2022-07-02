@@ -1,8 +1,6 @@
 package com.example.yqg_backend.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "goods")
@@ -23,12 +21,6 @@ public class Good {
 
     @Column(name = "images", length = 50)
     private String images;
-
-    @OneToMany(mappedBy = "goods")
-    private List<Orderitem> orderitems = new ArrayList<>();
-
-    @OneToMany(mappedBy = "goods")
-    private List<Groupbuyitem> groupbuyitems = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -68,22 +60,6 @@ public class Good {
 
     public void setImages(String images) {
         this.images = images;
-    }
-
-    public List<Orderitem> getOrderitems() {
-        return orderitems;
-    }
-
-    public void setOrderitems(List<Orderitem> orderitems) {
-        this.orderitems = orderitems;
-    }
-
-    public List<Groupbuyitem> getGroupbuyitems() {
-        return groupbuyitems;
-    }
-
-    public void setGroupbuyitems(List<Groupbuyitem> groupbuyitems) {
-        this.groupbuyitems = groupbuyitems;
     }
 
 }
