@@ -48,6 +48,28 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<Orderitem> orderitems = new ArrayList<>();
 
+    @Column(name = "status")
+    private Integer status;
+
+    public Order() {
+
+    }
+
+    public Order(Integer logisticsType, String deliverAddr, String receiveAddr, String note) {
+        this.logisticsType = logisticsType;
+        this.deliverAddr = deliverAddr;
+        this.receiveAddr = receiveAddr;
+        this.note = note;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     public List<Orderitem> getOrderitems() {
         return orderitems;
     }

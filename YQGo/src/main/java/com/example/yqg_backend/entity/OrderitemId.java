@@ -16,6 +16,14 @@ public class OrderitemId implements Serializable {
     @Column(name = "goodsId", nullable = false)
     private Integer goodsId;
 
+    public OrderitemId() {
+    }
+
+    public OrderitemId(Integer orderId, Integer goodsId) {
+        this.orderId = orderId;
+        this.goodsId = goodsId;
+    }
+
     public Integer getOrderId() {
         return orderId;
     }

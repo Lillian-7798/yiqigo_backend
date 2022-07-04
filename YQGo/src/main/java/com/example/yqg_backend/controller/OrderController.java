@@ -1,6 +1,9 @@
 package com.example.yqg_backend.controller;
 
 import com.example.yqg_backend.entity.Order;
+import com.example.yqg_backend.entity.RequestOrder;
+import com.example.yqg_backend.service.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -8,6 +11,8 @@ import java.util.List;
 @CrossOrigin
 @RestController
 public class OrderController {
+    @Autowired
+    private OrderService orderService;
 
     @RequestMapping(value = "/getOrderByUser",method = RequestMethod.GET)
     public Order getOrderByUser(@RequestParam("userID") Integer userID){
@@ -21,14 +26,8 @@ public class OrderController {
 
     // goods为对象数组，包括goodsId,count
     @RequestMapping(value = "/addOrder",method = RequestMethod.POST)
-    public boolean addOrder(@RequestBody List<Object> goods,
-                            @RequestParam("userId") Integer userid,
-                            @RequestParam("logisticsType") Integer logis,
-                            @RequestParam("diliverAddr") String diliverAddr,
-                            @RequestParam("receiveAddr") String receiveAddr,
-                            @RequestParam("GroupBuyID") Integer GBID,
-                            @RequestParam("note") String note){
-
+    public boolean addOrder(@RequestBody RequestOrder requestOrder){
+        orderService.addOrder(requestOrder);
         return true;
     }
 

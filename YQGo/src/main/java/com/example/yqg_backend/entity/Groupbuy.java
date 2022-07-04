@@ -41,6 +41,17 @@ public class Groupbuy {
     @OneToMany(mappedBy = "groupBuy")
     private List<Groupbuyitem> groupbuyitems = new ArrayList<>();
 
+    @Column(name = "status")
+    private Integer status;
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     public List<Groupbuyitem> getGroupbuyitems() {
         return groupbuyitems;
     }
