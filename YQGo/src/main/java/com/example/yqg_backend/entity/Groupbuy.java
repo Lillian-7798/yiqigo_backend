@@ -1,5 +1,7 @@
 package com.example.yqg_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -31,6 +33,10 @@ public class Groupbuy {
     @Column(name = "isSecKill")
     private Boolean isSecKill;
 
+    /* status == 0 表示提前结束  */
+    @Column(name = "status")
+    private Integer status;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
@@ -57,9 +63,7 @@ public class Groupbuy {
         this.orders = orders;
     }
 
-    public User getUser() {
-        return user;
-    }
+    public User getUser() { return user; }
 
     public void setUser(User user) {
         this.user = user;
@@ -120,6 +124,10 @@ public class Groupbuy {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public Integer getStatus() {return status;}
+
+    public void setStatus(Integer status) {this.status = status;}
 
 //TODO [JPA Buddy] generate columns from DB
 }
