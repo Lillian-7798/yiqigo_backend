@@ -1,7 +1,6 @@
 package com.example.yqg_backend.controller;
 
 import com.example.yqg_backend.entity.Order;
-import com.example.yqg_backend.entity.RequestOrder;
 import com.example.yqg_backend.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,23 +10,28 @@ import java.util.List;
 @CrossOrigin
 @RestController
 public class OrderController {
+
     @Autowired
     private OrderService orderService;
 
     @RequestMapping(value = "/getOrderByUser",method = RequestMethod.GET)
-    public Order getOrderByUser(@RequestParam("userID") Integer userID){
-        return null;
+    public List<Order> getOrderByUser(@RequestParam("userID") Integer userID) {
+        System.out.println(userID);
+        return orderService.getOrderByUser(userID);
     }
 
     @RequestMapping(value = "/getOrderDetail",method = RequestMethod.GET)
     public Order getOrderDetail(@RequestParam("orderID") Integer orderID){
-        return null;
+        return orderService.getOrderDetail(orderID);
     }
 
-    // goods为对象数组，包括goodsId,count
+//    addOrder这里不知道前端的商品列表要怎么传进来
     @RequestMapping(value = "/addOrder",method = RequestMethod.POST)
-    public boolean addOrder(@RequestBody RequestOrder requestOrder){
-        orderService.addOrder(requestOrder);
+    public boolean addOrder(@RequestParam("goodsList") List<Object> goods,
+                            @RequestParam("logisticsType") Integer logis,
+                            @RequestParam("diliverAddr") String diliverAddr,
+                            @RequestParam("receiveAddr") String receiveAddr,
+                            @RequestParam("GroupBuyID") Integer GBID){
         return true;
     }
 
