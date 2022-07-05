@@ -22,6 +22,14 @@ public class Good {
     @Column(name = "images", length = 50)
     private String images;
 
+    public Good(){}
+
+    public Good(String name,String description,Integer price,String images){
+        this.name=name;
+        this.description=description;
+        this.price=price;
+        this.images=images;
+    }
     public Integer getId() {
         return id;
     }

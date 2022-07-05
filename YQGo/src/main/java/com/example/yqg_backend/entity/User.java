@@ -21,6 +21,9 @@ public class User {
     @Column(name = "address", length = 50)
     private String address;
 
+    @Column(name = "money")
+    private Integer money;
+
     @OneToMany(mappedBy = "user")
     private List<Groupbuy> groupbuys = new ArrayList<>();
 
@@ -97,5 +100,12 @@ public class User {
         this.id = id;
     }
 
-//TODO [JPA Buddy] generate columns from DB
+    public Integer getMoney() {
+        return money;
+    }
+
+    public void setMoney(Integer money) {
+        this.money = money;
+    }
+    //TODO [JPA Buddy] generate columns from DB
 }

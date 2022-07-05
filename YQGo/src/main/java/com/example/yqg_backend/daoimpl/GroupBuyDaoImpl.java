@@ -15,4 +15,7 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
     public Groupbuy getGroupBuy(Integer groupBuyId) {
         return groupbuyRepository.getById(groupBuyId);
     }
+
+    @Override
+    public void addGroupbuy(Groupbuy groupbuy){groupbuyRepository.save(groupbuy);}
 }

@@ -4,4 +4,6 @@ import com.example.yqg_backend.entity.Groupbuy;
 
 public interface GroupBuyDao {
     Groupbuy getGroupBuy(Integer groupBuyId);
+
+    void addGroupbuy(Groupbuy groupbuy);
 }

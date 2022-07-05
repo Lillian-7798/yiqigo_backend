@@ -15,4 +15,9 @@ public class GoodDaoImpl implements GoodDao {
     public Good getGood(Integer goodsId) {
         return goodRepository.getById(goodsId);
     }
+
+    @Override
+    public void addGood(Good good){
+        goodRepository.save(good);
+    }
 }
