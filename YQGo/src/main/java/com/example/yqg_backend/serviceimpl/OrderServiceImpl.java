@@ -60,4 +60,14 @@ public class OrderServiceImpl implements OrderService {
         }
         orderItemDao.addOrderItems(orderitems);
     }
+
+    @Override
+    public List<Order> getOrderByUser(Integer userID){
+      return orderDao.getOrderByUser(userID);
+    }
+
+    @Override
+    public Order getOrderDetail(Integer orderID){
+      return orderDao.getOrderDetail(orderID);
+    }
 }
