@@ -34,13 +34,16 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
             String title = gb.getTitle();
             Integer GroupBuyId = gb.getId();
             Integer sta = gb.getStatus();
+            Timestamp startTime = gb.getStartTime();
             Timestamp endTime = gb.getEndTime();
             Timestamp current = new Timestamp(System.currentTimeMillis());
             String status = "已结束";
             if(sta == 0)
                 status = "提前结束";
-            else if(endTime.getTime() > current.getTime() && sta==1)
+            else if(endTime.getTime() >= current.getTime() && sta==1)
                 status = "正在抢购中";
+            else if(startTime.getTime() > current.getTime() && sta==1)
+                status = "未开始";
 
             List<Groupbuyitem> listGoods = gb.getGroupbuyitems();
             List<String> url = new ArrayList<>();

@@ -37,6 +37,9 @@ public class Order {
     @Column(name = "time")
     private Timestamp time;
 
+    @Column(name = "status")
+    private Integer status;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
@@ -111,6 +114,10 @@ public class Order {
     public void setNote(String note) {
         this.note = note;
     }
+
+    public Integer getStatus() { return status; }
+
+    public void setStatus(Integer status) { this.status = status; }
 
     public String getReceiveAddr() {
         return receiveAddr;

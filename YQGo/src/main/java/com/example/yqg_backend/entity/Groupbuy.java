@@ -30,9 +30,6 @@ public class Groupbuy {
     @Column(name = "endTime")
     private Timestamp endTime;
 
-    @Column(name = "isSecKill")
-    private Boolean isSecKill;
-
     /* status == 0 表示提前结束  */
     @Column(name = "status")
     private Integer status;
@@ -67,14 +64,6 @@ public class Groupbuy {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Boolean getIsSecKill() {
-        return isSecKill;
-    }
-
-    public void setIsSecKill(Boolean isSecKill) {
-        this.isSecKill = isSecKill;
     }
 
     public Timestamp getEndTime() {
