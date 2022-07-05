@@ -1,5 +1,10 @@
 package com.example.yqg_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -7,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Order {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -37,14 +43,15 @@ public class Order {
     @Column(name = "time")
     private Timestamp time;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "groupBuyId")
     private Groupbuy groupBuy;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "order")
     private List<Orderitem> orderitems = new ArrayList<>();
 
@@ -70,18 +77,22 @@ public class Order {
         this.status = status;
     }
 
+    @JsonManagedReference
     public List<Orderitem> getOrderitems() {
         return orderitems;
     }
 
+    @JsonManagedReference
     public void setOrderitems(List<Orderitem> orderitems) {
         this.orderitems = orderitems;
     }
 
+    //@JsonBackReference
     public Groupbuy getGroupBuy() {
         return groupBuy;
     }
 
+    //@JsonBackReference
     public void setGroupBuy(Groupbuy groupBuy) {
         this.groupBuy = groupBuy;
     }
