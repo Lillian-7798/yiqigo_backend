@@ -1,5 +1,10 @@
 package com.example.yqg_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -7,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "groupbuy")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Groupbuy {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -31,10 +37,11 @@ public class Groupbuy {
     @Column(name = "isSecKill")
     private Boolean isSecKill;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
     private User user;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "groupBuy")
     private List<Order> orders = new ArrayList<>();
 
@@ -60,10 +67,12 @@ public class Groupbuy {
         this.groupbuyitems = groupbuyitems;
     }
 
+    @JsonManagedReference
     public List<Order> getOrders() {
         return orders;
     }
 
+    @JsonManagedReference
     public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
