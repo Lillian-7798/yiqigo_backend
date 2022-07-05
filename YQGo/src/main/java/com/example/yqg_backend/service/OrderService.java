@@ -4,4 +4,8 @@ import com.example.yqg_backend.entity.RequestOrder;
 
 public interface OrderService {
     void addOrder(RequestOrder requestOrder);
+    
+    List<Order> getOrderByUser(Integer userID);
+
+    Order getOrderDetail(Integer orderID);
 }
