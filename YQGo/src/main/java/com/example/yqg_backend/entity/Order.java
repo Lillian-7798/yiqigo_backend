@@ -1,5 +1,7 @@
 package com.example.yqg_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -7,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders")
+@JsonIgnoreProperties({"user", "groupBuy"})
 public class Order {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -46,7 +49,7 @@ public class Order {
     private Groupbuy groupBuy;
 
     @OneToMany(mappedBy = "order")
-    private List<Orderitem> orderitems = new ArrayList<>();
+    private List<Orderitem> orderitems;
 
     @Column(name = "status")
     private Integer status;

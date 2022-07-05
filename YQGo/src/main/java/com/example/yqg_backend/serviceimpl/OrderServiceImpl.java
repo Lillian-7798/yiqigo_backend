@@ -3,8 +3,11 @@ package com.example.yqg_backend.serviceimpl;
 import com.example.yqg_backend.dao.*;
 import com.example.yqg_backend.entity.*;
 import com.example.yqg_backend.service.OrderService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import springfox.documentation.spring.web.json.Json;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -24,7 +27,7 @@ public class OrderServiceImpl implements OrderService {
     GoodDao goodDao;
 
     @Override
-    public void addOrder(RequestOrder requestOrder) {        // 缺乏库存检查
+    public Order addOrder(RequestOrder requestOrder) {        // 缺乏库存检查
         Order order = new Order(requestOrder.getLogisticsType(),
                 requestOrder.getDeliverAddr(),
                 requestOrder.getReceiveAddr(),
@@ -59,5 +62,6 @@ public class OrderServiceImpl implements OrderService {
             item.setOrder(order);
         }
         orderItemDao.addOrderItems(orderitems);
+        return order;
     }
 }

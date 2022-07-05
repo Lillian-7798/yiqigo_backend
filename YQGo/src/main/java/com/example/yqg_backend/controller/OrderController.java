@@ -26,9 +26,9 @@ public class OrderController {
 
     // goods为对象数组，包括goodsId,count
     @RequestMapping(value = "/addOrder",method = RequestMethod.POST)
-    public boolean addOrder(@RequestBody RequestOrder requestOrder){
-        orderService.addOrder(requestOrder);
-        return true;
+    public Order addOrder(@RequestBody RequestOrder requestOrder){
+        return orderService.addOrder(requestOrder);
+        //return true;
     }
 
     @RequestMapping(value = "/getOrdersByGroupBuy",method = RequestMethod.GET)
