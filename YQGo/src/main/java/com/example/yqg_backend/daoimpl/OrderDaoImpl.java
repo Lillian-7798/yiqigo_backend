@@ -21,5 +21,16 @@ public class OrderDaoImpl implements OrderDao {
         return orderRepository.getMaxNumber(groupBuyId);
     }
 
+    @Override
+    public List<Order> getOrderByUser(Integer userID){
+        List<Order> l=orderRepository.getOrderByUser(userID);
+        System.out.println(l);
+        return l;
+    }
+
+    @Override
+    public Order getOrderDetail(Integer orderID){
+        return orderRepository.getOrderDetail(orderID);
+    }
 
 }
