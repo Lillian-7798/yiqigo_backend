@@ -1,27 +1,39 @@
 package com.example.yqg_backend.serviceimpl;
 
+import com.example.yqg_backend.dao.OrderDao;
 import com.example.yqg_backend.dao.*;
 import com.example.yqg_backend.entity.*;
 import com.example.yqg_backend.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
     @Autowired
-    OrderDao orderDao;
+    private OrderDao orderDao;
     @Autowired
-    OrderItemDao orderItemDao;
+    private OrderItemDao orderItemDao;
     @Autowired
-    UserDao userDao;
+    private UserDao userDao;
     @Autowired
-    GroupBuyDao groupBuyDao;
+    private GroupBuyDao groupBuyDao;
     @Autowired
-    GoodDao goodDao;
+    private GoodDao goodDao;
+
+    @Override
+    public Map<String, Object> getOrderByLeader(Integer groupBuyId) {
+        return orderDao.getOrderByLeader(groupBuyId);
+    }
+
+    @Override
+    public Map<String, Object> getOrderDetailByLeader(Integer orderID) {
+        return orderDao.getOrderDetailByLeader(orderID);
+    }
 
     @Override
     public void addOrder(RequestOrder requestOrder) {        // 缺乏库存检查

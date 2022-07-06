@@ -28,8 +28,9 @@ public class Groupbuy {
     @Column(name = "endTime")
     private Timestamp endTime;
 
-    @Column(name = "isSecKill")
-    private Boolean isSecKill;
+    /* status == 0 表示提前结束  */
+    @Column(name = "status")
+    private Integer status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
@@ -41,16 +42,6 @@ public class Groupbuy {
     @OneToMany(mappedBy = "groupBuy")
     private List<Groupbuyitem> groupbuyitems = new ArrayList<>();
 
-    @Column(name = "status")
-    private Integer status;
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
 
     public List<Groupbuyitem> getGroupbuyitems() {
         return groupbuyitems;
@@ -68,20 +59,10 @@ public class Groupbuy {
         this.orders = orders;
     }
 
-    public User getUser() {
-        return user;
-    }
+    public User getUser() { return user; }
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Boolean getIsSecKill() {
-        return isSecKill;
-    }
-
-    public void setIsSecKill(Boolean isSecKill) {
-        this.isSecKill = isSecKill;
     }
 
     public Timestamp getEndTime() {
@@ -131,6 +112,10 @@ public class Groupbuy {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public Integer getStatus() {return status;}
+
+    public void setStatus(Integer status) {this.status = status;}
 
 //TODO [JPA Buddy] generate columns from DB
 }

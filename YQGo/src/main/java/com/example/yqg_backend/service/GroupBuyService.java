@@ -1,12 +1,9 @@
-package com.example.yqg_backend.dao;
-
-import com.example.yqg_backend.entity.Groupbuy;
+package com.example.yqg_backend.service;
 
 import java.util.List;
 import java.util.Map;
 
-public interface GroupBuyDao {
+public interface GroupBuyService {
     List<Map<String, Object>> getUserGB(Integer uid);
     Map<String, Object> getGroupBuyDetail(Integer groupBuyId);
-    Groupbuy getGroupBuy(Integer groupBuyId);
 }
