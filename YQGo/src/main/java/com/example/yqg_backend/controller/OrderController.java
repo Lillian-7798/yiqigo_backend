@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -19,12 +20,17 @@ public class OrderController {
         return null;
     }
 
-    @RequestMapping(value = "/getOrderDetail",method = RequestMethod.GET)
-    public Order getOrderDetail(@RequestParam("orderID") Integer orderID){
-        return null;
+    @RequestMapping(value = "/getOrderByLeader",method = RequestMethod.GET)
+    public Map<String, Object> getOrderByLeader(@RequestParam("GroupBuyId") Integer GroupBuyId){
+        return orderService.getOrderByLeader(GroupBuyId);
     }
 
-    // goods为对象数组，包括goodsId,count
+    @RequestMapping(value = "/getOrderDetailByLeader",method = RequestMethod.GET)
+    public Map<String,Object> getOrderDetailByLeader(@RequestParam("orderID") Integer orderID){
+        return orderService.getOrderDetailByLeader(orderID);
+    }
+
+    // RequestOrder为前端发送的请求内容
     @RequestMapping(value = "/addOrder",method = RequestMethod.POST)
     public boolean addOrder(@RequestBody RequestOrder requestOrder){
         System.out.println("add order!");

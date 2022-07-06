@@ -1,9 +1,11 @@
 package com.example.yqg_backend.controller;
 
-import com.example.yqg_backend.entity.Groupbuy;
 import com.example.yqg_backend.entity.Order;
+<<<<<<< HEAD
 import com.example.yqg_backend.entity.RequestGoods2;
 import com.example.yqg_backend.entity.RequestGroupBuy;
+=======
+>>>>>>> d4f1cdb6e7680c71f6205382fbec84376c4bc86e
 import com.example.yqg_backend.service.GroupBuyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,22 +13,25 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
 public class GroupBuyController {
+    @Autowired
+    private GroupBuyService groupBuyService;
 
     @Autowired
     private GroupBuyService groupBuyService;
     @RequestMapping("/getGroupBuysByUser")
-    public List<Groupbuy> getUser(@RequestParam("userid") Integer userid)
+    public List<Map<String, Object>> getUserGB(@RequestParam("userId") Integer userId)
     {
-        return null;
+        return groupBuyService.getUserGB(userId);
     }
 
     @RequestMapping(value = "/getGroupBuyDetail",method = RequestMethod.GET)
-    public Groupbuy getGroupBuyDetail(@RequestParam("groupBuyId") Integer groupBuyId){
-        return null;
+    public Map<String, Object> getGroupBuyDetail(@RequestParam("groupBuyId") Integer groupBuyId){
+        return groupBuyService.getGroupBuyDetail(groupBuyId);
     }
 
     @RequestMapping(value = "/addGroupBuy",method = RequestMethod.POST)

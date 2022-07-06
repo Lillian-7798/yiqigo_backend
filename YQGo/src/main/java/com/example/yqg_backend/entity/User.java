@@ -18,6 +18,9 @@ public class User {
     @Column(name = "mobile", length = 20)
     private String mobile;
 
+    @Column(name = "money")
+    private Integer money;
+
     @Column(name = "address", length = 50)
     private String address;
 
@@ -35,6 +38,10 @@ public class User {
 
     @OneToMany(mappedBy = "userId2")
     private List<Dialog> dialogs2 = new ArrayList<>();
+
+    public Integer getMoney() { return money; }
+
+    public void setMoney(Integer money) { this.money = money; }
 
     public List<Dialog> getDialogs2() {
         return dialogs2;

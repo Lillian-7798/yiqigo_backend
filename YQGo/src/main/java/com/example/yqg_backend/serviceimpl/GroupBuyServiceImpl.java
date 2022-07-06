@@ -1,14 +1,19 @@
 package com.example.yqg_backend.serviceimpl;
 
+<<<<<<< HEAD
 import com.example.yqg_backend.dao.GoodDao;
 import com.example.yqg_backend.dao.GroupBuyDao;
 import com.example.yqg_backend.dao.GroupBuyItemDao;
 import com.example.yqg_backend.dao.UserDao;
 import com.example.yqg_backend.entity.*;
+=======
+import com.example.yqg_backend.dao.GroupBuyDao;
+>>>>>>> d4f1cdb6e7680c71f6205382fbec84376c4bc86e
 import com.example.yqg_backend.service.GroupBuyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -46,5 +51,24 @@ public class GroupBuyServiceImpl implements GroupBuyService {
             Gitem.setGroupBuy(groupbuy);
         }
         groupBuyItemDao.addGroupBuyItems(groupbuyitems);
+=======
+import java.util.List;
+import java.util.Map;
+
+@Service
+
+public class GroupBuyServiceImpl implements GroupBuyService {
+    @Autowired
+    private GroupBuyDao groupBuyDao;
+
+    @Override
+    public List<Map<String, Object>> getUserGB(Integer uid) {
+        return groupBuyDao.getUserGB(uid);
+    }
+
+    @Override
+    public Map<String, Object> getGroupBuyDetail(Integer groupBuyId) {
+        return groupBuyDao.getGroupBuyDetail(groupBuyId);
+>>>>>>> d4f1cdb6e7680c71f6205382fbec84376c4bc86e
     }
 }
