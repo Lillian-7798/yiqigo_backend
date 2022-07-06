@@ -3,6 +3,7 @@ package com.example.yqg_backend.controller;
 import com.example.yqg_backend.entity.Groupbuy;
 import com.example.yqg_backend.entity.Order;
 import com.example.yqg_backend.entity.RequestGoods2;
+import com.example.yqg_backend.entity.RequestGroupBuy;
 import com.example.yqg_backend.service.GroupBuyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,17 +30,12 @@ public class GroupBuyController {
     }
 
     @RequestMapping(value = "/addGroupBuy",method = RequestMethod.POST)
-    public boolean addGroupBuy(@RequestParam("userid") Integer userID,
-                               @RequestParam("title") String title,
-                               @RequestParam("description") String description,
-                               @RequestParam("logisticsType") Integer logisticsType,
-                               @RequestParam("startTime") String start,
-                               @RequestParam("endTime") String end,
-                               @RequestParam("goodList")List<RequestGoods2> goodslist){
+    public boolean addGroupBuy(@RequestBody RequestGroupBuy requestGroupBuy){
         System.out.println("add GroupBuy!");
-        Timestamp startTime =Timestamp.valueOf(start);
-        Timestamp endTime = Timestamp.valueOf(end);
-        groupBuyService.addGroupBuy(userID,title,description,logisticsType,startTime,endTime,goodslist);
+        Timestamp startTime =Timestamp.valueOf(requestGroupBuy.getStartTime());
+        Timestamp endTime = Timestamp.valueOf(requestGroupBuy.getEndTime());
+        groupBuyService.addGroupBuy(requestGroupBuy.getUserid(), requestGroupBuy.getTitle(),requestGroupBuy.getDescription(),requestGroupBuy.getLogisticsType()
+                ,startTime,endTime,requestGroupBuy.getGoodList());
         return true;
     }
 
