@@ -21,6 +21,14 @@ public class Orderitem {
     @Column(name = "count")
     private Integer count;
 
+    public Orderitem() {
+    }
+
+    public Orderitem(Good goods, Integer count) {
+        this.goods = goods;
+        this.count = count;
+    }
+
     public OrderitemId getId() {
         return id;
     }

@@ -1,13 +1,10 @@
 package com.example.yqg_backend.controller;
 
-import com.example.yqg_backend.entity.Groupbuy;
 import com.example.yqg_backend.entity.Order;
 import com.example.yqg_backend.service.GroupBuyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;

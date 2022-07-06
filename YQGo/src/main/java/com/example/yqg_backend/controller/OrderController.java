@@ -1,6 +1,7 @@
 package com.example.yqg_backend.controller;
 
 import com.example.yqg_backend.entity.Order;
+import com.example.yqg_backend.entity.RequestOrder;
 import com.example.yqg_backend.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,16 +30,10 @@ public class OrderController {
         return orderService.getOrderDetailByLeader(orderID);
     }
 
-    // goods为对象数组，包括goodsId,count
+    // RequestOrder为前端发送的请求内容
     @RequestMapping(value = "/addOrder",method = RequestMethod.POST)
-    public boolean addOrder(@RequestBody List<Object> goods,
-                            @RequestParam("userId") Integer userid,
-                            @RequestParam("logisticsType") Integer logis,
-                            @RequestParam("diliverAddr") String diliverAddr,
-                            @RequestParam("receiveAddr") String receiveAddr,
-                            @RequestParam("GroupBuyID") Integer GBID,
-                            @RequestParam("note") String note){
-
+    public boolean addOrder(@RequestBody RequestOrder requestOrder){
+        orderService.addOrder(requestOrder);
         return true;
     }
 

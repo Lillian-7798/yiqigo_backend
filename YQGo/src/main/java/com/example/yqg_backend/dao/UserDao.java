@@ -1,7 +1,7 @@
 package com.example.yqg_backend.dao;
 
-import org.springframework.stereotype.Repository;
+import com.example.yqg_backend.entity.User;
 
-@Repository
 public interface UserDao {
+    User getUser(Integer userId);
 }

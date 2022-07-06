@@ -1,7 +1,5 @@
 package com.example.yqg_backend.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -43,6 +41,7 @@ public class Groupbuy {
 
     @OneToMany(mappedBy = "groupBuy")
     private List<Groupbuyitem> groupbuyitems = new ArrayList<>();
+
 
     public List<Groupbuyitem> getGroupbuyitems() {
         return groupbuyitems;

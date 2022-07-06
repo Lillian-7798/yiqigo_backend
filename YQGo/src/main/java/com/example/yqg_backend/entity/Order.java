@@ -51,6 +51,17 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<Orderitem> orderitems = new ArrayList<>();
 
+    public Order() {
+
+    }
+
+    public Order(Integer logisticsType, String deliverAddr, String receiveAddr, String note) {
+        this.logisticsType = logisticsType;
+        this.deliverAddr = deliverAddr;
+        this.receiveAddr = receiveAddr;
+        this.note = note;
+    }
+
     public List<Orderitem> getOrderitems() {
         return orderitems;
     }

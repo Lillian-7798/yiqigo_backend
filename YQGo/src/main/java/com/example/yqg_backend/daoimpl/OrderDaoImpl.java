@@ -2,7 +2,8 @@ package com.example.yqg_backend.daoimpl;
 
 import com.example.yqg_backend.dao.OrderDao;
 import com.example.yqg_backend.entity.*;
-import com.example.yqg_backend.repository.GroupBuyRepository;
+import com.example.yqg_backend.repository.GroupbuyRepository;
+import com.example.yqg_backend.entity.Order;
 import com.example.yqg_backend.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,14 +21,14 @@ public class OrderDaoImpl implements OrderDao {
     private OrderRepository orderRepository;
 
     @Autowired
-    private GroupBuyRepository groupBuyRepository;
+    private GroupbuyRepository groupbuyRepository;
 
     @Override
     public Map<String, Object> getOrderByLeader(Integer groupBuyId) {
         List<Order> lo = orderRepository.findByGroupBuyId(groupBuyId);
         Map<String, Object> rMap = new HashMap<>();
 
-        Groupbuy gb = groupBuyRepository.findByGroupBuyId(groupBuyId);
+        Groupbuy gb = groupbuyRepository.findByGroupBuyId(groupBuyId);
         String msgType = gb.getTitle() + "--销售订单";
         String MerName = gb.getUser().getName();
         rMap.put("msgType", msgType);
@@ -130,5 +131,14 @@ public class OrderDaoImpl implements OrderDao {
         rMap.put("goodsList",goodsList);
 
         return rMap;
+    }
+    @Override
+    public void addOrder(Order order) {
+        orderRepository.save(order);
+    }
+
+    @Override
+    public Integer getMaxNumber(Integer groupBuyId) {
+        return orderRepository.getMaxNumber(groupBuyId);
     }
 }

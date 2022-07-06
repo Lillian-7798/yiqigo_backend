@@ -5,7 +5,7 @@ import com.example.yqg_backend.entity.Good;
 import com.example.yqg_backend.entity.Groupbuy;
 import com.example.yqg_backend.entity.Groupbuyitem;
 import com.example.yqg_backend.entity.User;
-import com.example.yqg_backend.repository.GroupBuyRepository;
+import com.example.yqg_backend.repository.GroupbuyRepository;
 import com.example.yqg_backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,10 +15,9 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Repository
-
 public class GroupBuyDaoImpl implements GroupBuyDao {
     @Autowired
-    private GroupBuyRepository groupbuyRepository;
+    private GroupbuyRepository groupbuyRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -110,5 +109,10 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
         }
         map.put("goods_list", goods_list);
         return map;
+    }
+
+    @Override
+    public Groupbuy getGroupBuy(Integer groupBuyId) {
+        return groupbuyRepository.getById(groupBuyId);
     }
 }
