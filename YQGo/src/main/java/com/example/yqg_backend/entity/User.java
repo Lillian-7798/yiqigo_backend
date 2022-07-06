@@ -24,9 +24,6 @@ public class User {
     @Column(name = "address", length = 50)
     private String address;
 
-    @Column(name = "money")
-    private Integer money;
-
     @OneToMany(mappedBy = "user")
     private List<Groupbuy> groupbuys = new ArrayList<>();
 
@@ -38,10 +35,6 @@ public class User {
 
     @OneToMany(mappedBy = "userId2")
     private List<Dialog> dialogs2 = new ArrayList<>();
-
-    public Integer getMoney() { return money; }
-
-    public void setMoney(Integer money) { this.money = money; }
 
     public List<Dialog> getDialogs2() {
         return dialogs2;

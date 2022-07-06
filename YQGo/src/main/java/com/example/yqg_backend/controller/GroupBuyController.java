@@ -1,11 +1,8 @@
 package com.example.yqg_backend.controller;
 
 import com.example.yqg_backend.entity.Order;
-<<<<<<< HEAD
 import com.example.yqg_backend.entity.RequestGoods2;
 import com.example.yqg_backend.entity.RequestGroupBuy;
-=======
->>>>>>> d4f1cdb6e7680c71f6205382fbec84376c4bc86e
 import com.example.yqg_backend.service.GroupBuyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +18,6 @@ public class GroupBuyController {
     @Autowired
     private GroupBuyService groupBuyService;
 
-    @Autowired
-    private GroupBuyService groupBuyService;
     @RequestMapping("/getGroupBuysByUser")
     public List<Map<String, Object>> getUserGB(@RequestParam("userId") Integer userId)
     {

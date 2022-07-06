@@ -27,17 +27,14 @@ public class Groupbuyitem {
     @Column(name = "isSecKill")
     private Boolean isSecKill;
 
-<<<<<<< HEAD
     public Groupbuyitem(){}
-
     public Groupbuyitem(Good good,Integer inventory,Integer cost,Boolean isSecKill){
         this.goods=good;
         this.inventory=inventory;
         this.cost=cost;
         this.isSecKill=isSecKill;
     }
-=======
->>>>>>> d4f1cdb6e7680c71f6205382fbec84376c4bc86e
+
     public GroupbuyitemId getId() {
         return id;
     }
@@ -86,8 +83,4 @@ public class Groupbuyitem {
         this.isSecKill = isSecKill;
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> d4f1cdb6e7680c71f6205382fbec84376c4bc86e
 }
