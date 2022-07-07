@@ -6,7 +6,7 @@ public interface OrderDao {
     void addOrder(Order order);
     Integer getMaxNumber(Integer groupBuyId);
     
-    List<Order> getOrderByUser(Integer userID);
+    List<Map<String, Object>> getOrderByUser(Integer userID);
 
-    Order getOrderDetail(Integer orderID);
+    Map<String,Object> getOrderDetail(Integer orderID);
 }
