@@ -30,6 +30,13 @@ public class OrderController {
         return orderService.getOrderDetailByLeader(orderID);
     }
 
+    @RequestMapping(value = "/cancelOrder",method = RequestMethod.GET)
+    public boolean cancelOrder(@RequestParam("orderId") Integer orderId){
+        if(orderService.cancelOrder(orderId))
+            return true;
+        return false;
+    }
+
     // RequestOrder为前端发送的请求内容
     @RequestMapping(value = "/addOrder",method = RequestMethod.POST)
     public boolean addOrder(@RequestBody RequestOrder requestOrder){

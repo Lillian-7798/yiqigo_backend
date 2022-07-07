@@ -49,7 +49,9 @@ public class GroupBuyController {
 
     @RequestMapping(value = "/deleteGroupBuy")
     public boolean deleteGroupBuy(@RequestParam("groupBuyId") Integer groupBuyId) {
-        return true;
+        if(groupBuyService.deleteGroupBuy(groupBuyId))
+            return true;
+        return false;
     }
 
     @RequestMapping("endGroupBuy")

@@ -72,4 +72,11 @@ public class OrderServiceImpl implements OrderService {
         }
         orderItemDao.addOrderItems(orderitems);
     }
+
+    @Override
+    public boolean cancelOrder(Integer orderId) {
+        if(orderDao.cancelOrder(orderId))
+            return true;
+        else return false;
+    }
 }

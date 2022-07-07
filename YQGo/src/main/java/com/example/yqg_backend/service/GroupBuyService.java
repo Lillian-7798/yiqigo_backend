@@ -6,4 +6,5 @@ import java.util.Map;
 public interface GroupBuyService {
     List<Map<String, Object>> getUserGB(Integer uid);
     Map<String, Object> getGroupBuyDetail(Integer groupBuyId);
+    boolean deleteGroupBuy(Integer groupBuyId);
 }

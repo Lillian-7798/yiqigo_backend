@@ -5,6 +5,7 @@ import com.example.yqg_backend.entity.*;
 import com.example.yqg_backend.repository.GroupbuyRepository;
 import com.example.yqg_backend.entity.Order;
 import com.example.yqg_backend.repository.OrderRepository;
+import com.example.yqg_backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -22,6 +23,9 @@ public class OrderDaoImpl implements OrderDao {
 
     @Autowired
     private GroupbuyRepository groupbuyRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public Map<String, Object> getOrderByLeader(Integer groupBuyId) {
@@ -44,6 +48,7 @@ public class OrderDaoImpl implements OrderDao {
             String time = formatter.format(payTime);
             Integer TotalPrice = o.getPrice();
             Integer count = o.getCount();
+            Integer status = o.getStatus();
             List<Map<String,Object>> goods = new ArrayList<>();
             List<Orderitem> oiList = o.getOrderitems();
             for(Orderitem oi: oiList) {
@@ -62,6 +67,7 @@ public class OrderDaoImpl implements OrderDao {
             map.put("TotalPrice",TotalPrice);
             map.put("count",count);
             map.put("goods",goods);
+            map.put("status",status);
 
             dataList.add(map);
         }
@@ -140,5 +146,21 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public Integer getMaxNumber(Integer groupBuyId) {
         return orderRepository.getMaxNumber(groupBuyId);
+    }
+
+    @Override
+    public boolean cancelOrder(Integer orderId) {
+        Order o = orderRepository.getById(orderId);
+        if(o.getStatus() != 3) {
+            o.setStatus(3);
+            User u = o.getUser();
+            Integer price = o.getPrice();
+            u.setMoney(u.getMoney() + price);
+            userRepository.save(u);
+            orderRepository.save(o);
+            return true;
+        }
+        return false;
+
     }
 }

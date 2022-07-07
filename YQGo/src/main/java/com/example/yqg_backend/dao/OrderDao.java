@@ -9,4 +9,5 @@ public interface OrderDao {
     Map<String, Object> getOrderDetailByLeader(Integer orderID);
     void addOrder(Order order);
     Integer getMaxNumber(Integer groupBuyId);
+    boolean cancelOrder(Integer orderId);
 }

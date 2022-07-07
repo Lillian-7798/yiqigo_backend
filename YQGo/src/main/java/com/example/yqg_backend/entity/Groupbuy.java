@@ -42,7 +42,6 @@ public class Groupbuy {
     @OneToMany(mappedBy = "groupBuy")
     private List<Groupbuyitem> groupbuyitems = new ArrayList<>();
 
-
     public List<Groupbuyitem> getGroupbuyitems() {
         return groupbuyitems;
     }
