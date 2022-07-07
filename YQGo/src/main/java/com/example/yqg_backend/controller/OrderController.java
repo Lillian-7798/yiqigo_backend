@@ -12,12 +12,18 @@ import java.util.Map;
 @CrossOrigin
 @RestController
 public class OrderController {
+
     @Autowired
     private OrderService orderService;
 
     @RequestMapping(value = "/getOrderByUser",method = RequestMethod.GET)
-    public Order getOrderByUser(@RequestParam("userID") Integer userID){
-        return null;
+    public List<Map<String, Object>> getOrderByUser(@RequestParam("userID") Integer userID) {
+        return orderService.getOrderByUser(userID);
+    }
+
+    @RequestMapping(value = "/getOrderDetail",method = RequestMethod.GET)
+    public Map<String,Object> getOrderDetail(@RequestParam("orderID") Integer orderID){
+        return orderService.getOrderDetail(orderID);
     }
 
     @RequestMapping(value = "/getOrderByLeader",method = RequestMethod.GET)

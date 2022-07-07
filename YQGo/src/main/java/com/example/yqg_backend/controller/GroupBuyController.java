@@ -1,7 +1,6 @@
 package com.example.yqg_backend.controller;
 
 import com.example.yqg_backend.entity.Order;
-import com.example.yqg_backend.entity.RequestGoods2;
 import com.example.yqg_backend.entity.RequestGroupBuy;
 import com.example.yqg_backend.service.GroupBuyService;
 import org.springframework.beans.factory.annotation.Autowired;
