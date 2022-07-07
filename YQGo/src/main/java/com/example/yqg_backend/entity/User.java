@@ -36,10 +36,6 @@ public class User {
     @OneToMany(mappedBy = "userId2")
     private List<Dialog> dialogs2 = new ArrayList<>();
 
-    public Integer getMoney() { return money; }
-
-    public void setMoney(Integer money) { this.money = money; }
-
     public List<Dialog> getDialogs2() {
         return dialogs2;
     }
@@ -104,5 +100,12 @@ public class User {
         this.id = id;
     }
 
-//TODO [JPA Buddy] generate columns from DB
+    public Integer getMoney() {
+        return money;
+    }
+
+    public void setMoney(Integer money) {
+        this.money = money;
+    }
+    //TODO [JPA Buddy] generate columns from DB
 }

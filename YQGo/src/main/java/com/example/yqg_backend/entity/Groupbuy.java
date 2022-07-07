@@ -28,10 +28,6 @@ public class Groupbuy {
     @Column(name = "endTime")
     private Timestamp endTime;
 
-    /* status == 0 表示提前结束  */
-    @Column(name = "status")
-    private Integer status;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
@@ -42,6 +38,21 @@ public class Groupbuy {
     @OneToMany(mappedBy = "groupBuy")
     private List<Groupbuyitem> groupbuyitems = new ArrayList<>();
 
+//    status=0 ----- 团购提前结束
+//    status=1 ----- 团购依据时间判断是否结束
+    @Column(name = "status")
+    private Integer status;
+
+    public Groupbuy(){}
+
+    public Groupbuy(String title,String description,Integer logisticsType,Timestamp startTime,Timestamp endTime){
+        this.title=title;
+        this.description=description;
+        this.logisticsType=logisticsType;
+        this.startTime=startTime;
+        this.endTime=endTime;
+        this.status=1;
+    }
 
     public List<Groupbuyitem> getGroupbuyitems() {
         return groupbuyitems;

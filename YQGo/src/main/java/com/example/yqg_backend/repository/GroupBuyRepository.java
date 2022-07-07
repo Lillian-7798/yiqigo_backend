@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface GroupbuyRepository extends JpaRepository<Groupbuy, Integer> {
+public interface GroupBuyRepository extends JpaRepository<Groupbuy, Integer> {
    @Query(value = "SELECT gb FROM Groupbuy gb WHERE gb.user=:user")
    List<Groupbuy> findByUserId(@Param("user") User user);
 

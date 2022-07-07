@@ -33,6 +33,7 @@ public class OrderController {
     // RequestOrder为前端发送的请求内容
     @RequestMapping(value = "/addOrder",method = RequestMethod.POST)
     public boolean addOrder(@RequestBody RequestOrder requestOrder){
+        System.out.println("add order!");
         orderService.addOrder(requestOrder);
         return true;
     }

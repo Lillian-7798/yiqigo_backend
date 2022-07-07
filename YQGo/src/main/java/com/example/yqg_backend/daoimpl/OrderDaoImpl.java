@@ -2,7 +2,7 @@ package com.example.yqg_backend.daoimpl;
 
 import com.example.yqg_backend.dao.OrderDao;
 import com.example.yqg_backend.entity.*;
-import com.example.yqg_backend.repository.GroupbuyRepository;
+import com.example.yqg_backend.repository.GroupBuyRepository;
 import com.example.yqg_backend.entity.Order;
 import com.example.yqg_backend.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class OrderDaoImpl implements OrderDao {
     private OrderRepository orderRepository;
 
     @Autowired
-    private GroupbuyRepository groupbuyRepository;
+    private GroupBuyRepository groupbuyRepository;
 
     @Override
     public Map<String, Object> getOrderByLeader(Integer groupBuyId) {

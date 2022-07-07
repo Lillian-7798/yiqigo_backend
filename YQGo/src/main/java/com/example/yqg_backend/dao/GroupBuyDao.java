@@ -9,4 +9,6 @@ public interface GroupBuyDao {
     List<Map<String, Object>> getUserGB(Integer uid);
     Map<String, Object> getGroupBuyDetail(Integer groupBuyId);
     Groupbuy getGroupBuy(Integer groupBuyId);
+
+    void addGroupbuy(Groupbuy groupbuy);
 }
