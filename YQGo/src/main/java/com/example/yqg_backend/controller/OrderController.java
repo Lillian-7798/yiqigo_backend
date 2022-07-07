@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -15,13 +16,12 @@ public class OrderController {
     private OrderService orderService;
 
     @RequestMapping(value = "/getOrderByUser",method = RequestMethod.GET)
-    public List<Order> getOrderByUser(@RequestParam("userID") Integer userID) {
-        System.out.println(userID);
+    public List<Map<String, Object>> getOrderByUser(@RequestParam("userID") Integer userID) {
         return orderService.getOrderByUser(userID);
     }
 
     @RequestMapping(value = "/getOrderDetail",method = RequestMethod.GET)
-    public Order getOrderDetail(@RequestParam("orderID") Integer orderID){
+    public Map<String,Object> getOrderDetail(@RequestParam("orderID") Integer orderID){
         return orderService.getOrderDetail(orderID);
     }
 
