@@ -57,5 +57,13 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 
     @Override
     public Map<String, Object> getGroupBuyDetail(Integer groupBuyId) {
-        return groupBuyDao.getGroupBuyDetail(groupBuyId);}
+        return groupBuyDao.getGroupBuyDetail(groupBuyId);
+    }
+
+    @Override
+    public boolean deleteGroupBuy(Integer groupBuyId) {
+        if(groupBuyDao.deleteGroupBuy(groupBuyId))
+            return true;
+        return false;
+    }
 }

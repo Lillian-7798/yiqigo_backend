@@ -8,4 +8,5 @@ public interface OrderService {
     Map<String, Object> getOrderByLeader(Integer groupBuyId);
     Map<String, Object> getOrderDetailByLeader(Integer orderID);
     void addOrder(RequestOrder requestOrder);
+    boolean cancelOrder(Integer orderId);
 }

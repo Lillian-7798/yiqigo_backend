@@ -14,4 +14,5 @@ public interface GroupBuyService {
                      Timestamp endTime, List<RequestGoods2> goodslist);
     List<Map<String, Object>> getUserGB(Integer uid);
     Map<String, Object> getGroupBuyDetail(Integer groupBuyId);
+    boolean deleteGroupBuy(Integer groupBuyId);
 }

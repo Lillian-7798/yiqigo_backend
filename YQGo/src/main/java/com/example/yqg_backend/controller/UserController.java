@@ -24,7 +24,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/updateUser",method = RequestMethod.POST)
-    public boolean updateUseer(@RequestParam("userID") String userID,@RequestParam("address") String address){
+    public boolean updateUser(@RequestParam("userID") String userID,@RequestParam("address") String address){
         return true;
     }
 }
