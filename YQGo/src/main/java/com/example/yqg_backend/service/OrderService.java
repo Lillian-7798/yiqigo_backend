@@ -1,11 +1,12 @@
 package com.example.yqg_backend.service;
 
-import com.example.yqg_backend.entity.RequestOrder;
+import com.example.yqg_backend.entity.Order;
+
+import java.util.List;
+import java.util.Map;
 
 public interface OrderService {
-    void addOrder(RequestOrder requestOrder);
-    
-    List<Order> getOrderByUser(Integer userID);
+    List<Map<String, Object>> getOrderByUser(Integer userID);
 
-    Order getOrderDetail(Integer orderID);
+    Map<String,Object> getOrderDetail(Integer orderID);
 }
