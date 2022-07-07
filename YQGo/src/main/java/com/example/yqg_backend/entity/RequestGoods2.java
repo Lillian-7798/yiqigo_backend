@@ -5,7 +5,7 @@ import java.util.List;
 public class RequestGoods2 {
     private String name;
     private  String goods_des;
-    private String image;
+    private List<String> image;
     private Integer selling_price;
     private Integer inventory;
     private Integer cost_price;
@@ -31,7 +31,7 @@ public class RequestGoods2 {
         return selling_price;
     }
 
-    public String getImage() {
+    public List<String> getImage() {
         return image;
     }
 
@@ -47,7 +47,7 @@ public class RequestGoods2 {
         this.goods_des = goods_des;
     }
 
-    public void setImage(String image) {
+    public void setImage(List<String> image) {
         this.image = image;
     }
 
