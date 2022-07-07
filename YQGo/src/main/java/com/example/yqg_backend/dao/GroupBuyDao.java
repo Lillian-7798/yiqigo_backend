@@ -10,4 +10,5 @@ public interface GroupBuyDao {
     Map<String, Object> getGroupBuyDetail(Integer groupBuyId);
     Groupbuy getGroupBuy(Integer groupBuyId);
     boolean deleteGroupBuy(Integer groupBuyId);
+    void addGroupbuy(Groupbuy groupbuy);
 }

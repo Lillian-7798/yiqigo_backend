@@ -37,6 +37,10 @@ public class Order {
     @Column(name = "time")
     private Timestamp time;
 
+// status=0 ----- 已支付
+// status=1 ----- 运输中
+// status=2 ----- 已提货
+// status=3 ----- 已退款
     @Column(name = "status")
     private Integer status;
 

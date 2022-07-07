@@ -5,7 +5,6 @@ import com.example.yqg_backend.entity.*;
 import com.example.yqg_backend.repository.GroupbuyRepository;
 import com.example.yqg_backend.repository.OrderRepository;
 import com.example.yqg_backend.repository.UserRepository;
-import javafx.scene.canvas.GraphicsContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -140,4 +139,7 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
         }
         return false;
     }
+
+    @Override
+    public void addGroupbuy(Groupbuy groupbuy){groupbuyRepository.save(groupbuy);}
 }
