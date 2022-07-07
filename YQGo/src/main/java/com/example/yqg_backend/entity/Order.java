@@ -1,10 +1,5 @@
 package com.example.yqg_backend.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -12,7 +7,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Order {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -43,7 +37,14 @@ public class Order {
     @Column(name = "time")
     private Timestamp time;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+// status=0 ----- 已支付
+// status=1 ----- 运输中
+// status=2 ----- 已提货
+// status=3 ----- 已退款
+    @Column(name = "status")
+    private Integer status;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
 
@@ -51,12 +52,8 @@ public class Order {
     @JoinColumn(name = "groupBuyId")
     private Groupbuy groupBuy;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "order")
     private List<Orderitem> orderitems = new ArrayList<>();
-
-    @Column(name = "status")
-    private Integer status;
 
     public Order() {
 
@@ -69,30 +66,18 @@ public class Order {
         this.note = note;
     }
 
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    @JsonManagedReference
     public List<Orderitem> getOrderitems() {
         return orderitems;
     }
 
-    @JsonManagedReference
     public void setOrderitems(List<Orderitem> orderitems) {
         this.orderitems = orderitems;
     }
 
-    //@JsonBackReference
     public Groupbuy getGroupBuy() {
         return groupBuy;
     }
 
-    //@JsonBackReference
     public void setGroupBuy(Groupbuy groupBuy) {
         this.groupBuy = groupBuy;
     }
@@ -144,6 +129,10 @@ public class Order {
     public void setNote(String note) {
         this.note = note;
     }
+
+    public Integer getStatus() { return status; }
+
+    public void setStatus(Integer status) { this.status = status; }
 
     public String getReceiveAddr() {
         return receiveAddr;

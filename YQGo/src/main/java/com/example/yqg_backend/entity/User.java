@@ -1,16 +1,11 @@
 package com.example.yqg_backend.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "user")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -23,10 +18,12 @@ public class User {
     @Column(name = "mobile", length = 20)
     private String mobile;
 
+    @Column(name = "money")
+    private Integer money;
+
     @Column(name = "address", length = 50)
     private String address;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Groupbuy> groupbuys = new ArrayList<>();
 
@@ -63,12 +60,10 @@ public class User {
         this.orders = orders;
     }
 
-    @JsonManagedReference
     public List<Groupbuy> getGroupbuys() {
         return groupbuys;
     }
 
-    @JsonManagedReference
     public void setGroupbuys(List<Groupbuy> groupbuys) {
         this.groupbuys = groupbuys;
     }
@@ -105,5 +100,12 @@ public class User {
         this.id = id;
     }
 
-//TODO [JPA Buddy] generate columns from DB
+    public Integer getMoney() {
+        return money;
+    }
+
+    public void setMoney(Integer money) {
+        this.money = money;
+    }
+    //TODO [JPA Buddy] generate columns from DB
 }

@@ -1,10 +1,5 @@
 package com.example.yqg_backend.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -12,7 +7,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "groupbuy")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Groupbuy {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -34,29 +28,31 @@ public class Groupbuy {
     @Column(name = "endTime")
     private Timestamp endTime;
 
-    @Column(name = "isSecKill")
-    private Boolean isSecKill;
-
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "groupBuy")
     private List<Order> orders = new ArrayList<>();
 
     @OneToMany(mappedBy = "groupBuy")
     private List<Groupbuyitem> groupbuyitems = new ArrayList<>();
 
+//    status=0 ----- 团购提前结束
+//    status=1 ----- 团购依据时间判断是否结束
+//    status=2 ----- 团购已删除
     @Column(name = "status")
     private Integer status;
 
-    public Integer getStatus() {
-        return status;
-    }
+    public Groupbuy(){}
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public Groupbuy(String title,String description,Integer logisticsType,Timestamp startTime,Timestamp endTime){
+        this.title=title;
+        this.description=description;
+        this.logisticsType=logisticsType;
+        this.startTime=startTime;
+        this.endTime=endTime;
+        this.status=1;
     }
 
     public List<Groupbuyitem> getGroupbuyitems() {
@@ -67,30 +63,18 @@ public class Groupbuy {
         this.groupbuyitems = groupbuyitems;
     }
 
-    @JsonManagedReference
     public List<Order> getOrders() {
         return orders;
     }
 
-    @JsonManagedReference
     public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
 
-    public User getUser() {
-        return user;
-    }
+    public User getUser() { return user; }
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Boolean getIsSecKill() {
-        return isSecKill;
-    }
-
-    public void setIsSecKill(Boolean isSecKill) {
-        this.isSecKill = isSecKill;
     }
 
     public Timestamp getEndTime() {
@@ -140,6 +124,10 @@ public class Groupbuy {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public Integer getStatus() {return status;}
+
+    public void setStatus(Integer status) {this.status = status;}
 
 //TODO [JPA Buddy] generate columns from DB
 }

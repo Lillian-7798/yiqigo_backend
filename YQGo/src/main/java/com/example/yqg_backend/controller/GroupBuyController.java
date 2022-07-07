@@ -1,34 +1,40 @@
 package com.example.yqg_backend.controller;
 
-import com.example.yqg_backend.entity.Groupbuy;
 import com.example.yqg_backend.entity.Order;
+import com.example.yqg_backend.entity.RequestGroupBuy;
+import com.example.yqg_backend.service.GroupBuyService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
 public class GroupBuyController {
+    @Autowired
+    private GroupBuyService groupBuyService;
 
     @RequestMapping("/getGroupBuysByUser")
-    public List<Groupbuy> getUser(@RequestParam("userid") Integer userid)
+    public List<Map<String, Object>> getUserGB(@RequestParam("userId") Integer userId)
     {
-        return null;
+        return groupBuyService.getUserGB(userId);
     }
 
     @RequestMapping(value = "/getGroupBuyDetail",method = RequestMethod.GET)
-    public Groupbuy getGroupBuyDetail(@RequestParam("groupBuyId") Integer groupBuyId){
-        return null;
+    public Map<String, Object> getGroupBuyDetail(@RequestParam("groupBuyId") Integer groupBuyId){
+        return groupBuyService.getGroupBuyDetail(groupBuyId);
     }
 
     @RequestMapping(value = "/addGroupBuy",method = RequestMethod.POST)
-    public boolean addGroupBuy(@RequestParam("title") String title,
-                               @RequestParam("description") String description,
-                               @RequestParam("logisticsType") Integer logisticsType,
-                               @RequestParam("startTime") Date startTime,
-                               @RequestParam("endTime") Date endTime,
-                               @RequestParam("isSecKill") Boolean isSecKill){
+    public boolean addGroupBuy(@RequestBody RequestGroupBuy requestGroupBuy){
+        System.out.println("add GroupBuy!");
+        Timestamp startTime =Timestamp.valueOf(requestGroupBuy.getStartTime());
+        Timestamp endTime = Timestamp.valueOf(requestGroupBuy.getEndTime());
+        groupBuyService.addGroupBuy(requestGroupBuy.getUserid(), requestGroupBuy.getTitle(),requestGroupBuy.getDescription(),requestGroupBuy.getLogisticsType()
+                ,startTime,endTime,requestGroupBuy.getGoodList());
         return true;
     }
 
@@ -45,7 +51,9 @@ public class GroupBuyController {
 
     @RequestMapping(value = "/deleteGroupBuy")
     public boolean deleteGroupBuy(@RequestParam("groupBuyId") Integer groupBuyId) {
-        return true;
+        if(groupBuyService.deleteGroupBuy(groupBuyId))
+            return true;
+        return false;
     }
 
     @RequestMapping("endGroupBuy")

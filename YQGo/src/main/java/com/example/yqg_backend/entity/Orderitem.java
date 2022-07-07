@@ -1,8 +1,5 @@
 package com.example.yqg_backend.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 
 @Entity
@@ -12,7 +9,6 @@ public class Orderitem {
     private OrderitemId id;
 
     @MapsId("orderId")
-    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "orderId", nullable = false)
     private Order order;
@@ -41,12 +37,10 @@ public class Orderitem {
         this.id = id;
     }
 
-    @JsonBackReference
     public Order getOrder() {
         return order;
     }
 
-    @JsonBackReference
     public void setOrder(Order order) {
         this.order = order;
     }
