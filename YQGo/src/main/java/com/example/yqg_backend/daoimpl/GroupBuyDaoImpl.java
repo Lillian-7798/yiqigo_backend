@@ -58,7 +58,7 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
 
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("GroupBuyId", GroupBuyId);
-            map.put("userName", title);
+            map.put("title", title);
             map.put("price", minPrice);
             map.put("status", status);
             map.put("urls", url);
@@ -111,6 +111,66 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
         return map;
     }
 
+    @Override
+    public List<Map> searchGB(String keyword,String searchBy){
+        if(searchBy.equals("团长名")){
+            System.out.println(1);
+            String key="%"+keyword+"%";
+            List<Groupbuy> groupbuys=groupbuyRepository.getGBByuserName(key);
+            List<Map> GBs = new ArrayList<>();
+            for(Groupbuy item:groupbuys){
+                Map<String, Object> map = new HashMap<String, Object>();
+                Integer price =new Integer(200);
+                map.put("id",item.getId());
+                map.put("username",item.getUser().getName());
+                map.put("title",item.getTitle());
+                List<String> url=new ArrayList<>();
+                for(Groupbuyitem it:item.getGroupbuyitems()){
+                    url.add(it.getGoods().getImages());
+                    if(it.getGoods().getPrice()<price){
+                        price=it.getGoods().getPrice();
+                    }
+                }
+                map.put("price",price);
+                map.put("urls",url);
+                GBs.add(map);
+            }
+            return GBs;
+        }
+//       if(searchBy=="商品名称")
+        else{
+            System.out.println(searchBy);
+            List<Groupbuy> groupbuys=new ArrayList<>();
+            //获取GroupBuyList
+            for(Groupbuy temp:groupbuyRepository.getGroupbuys()){
+                for(Groupbuyitem it:temp.getGroupbuyitems()){
+                    if(it.getGoods().getName().indexOf(keyword)>-1){
+                        groupbuys.add(temp);
+                        break;
+                    }
+                }
+            }
+            List<Map> GBs = new ArrayList<>();
+            for(Groupbuy item:groupbuys){
+                Map<String, Object> map = new HashMap<String, Object>();
+                Integer price =new Integer(200);
+                map.put("id",item.getId());
+                map.put("username",item.getUser().getName());
+                map.put("title",item.getTitle());
+                List<String> url=new ArrayList<>();
+                for(Groupbuyitem it:item.getGroupbuyitems()){
+                    url.add(it.getGoods().getImages());
+                    if(it.getGoods().getPrice()<price){
+                        price=it.getGoods().getPrice();
+                    }
+                }
+                map.put("price",price);
+                map.put("urls",url);
+                GBs.add(map);
+            }
+            return GBs;
+        }
+    }
     @Override
     public Groupbuy getGroupBuy(Integer groupBuyId) {
         return groupbuyRepository.getById(groupBuyId);

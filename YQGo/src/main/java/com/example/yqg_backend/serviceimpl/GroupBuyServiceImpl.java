@@ -58,4 +58,9 @@ public class GroupBuyServiceImpl implements GroupBuyService {
     @Override
     public Map<String, Object> getGroupBuyDetail(Integer groupBuyId) {
         return groupBuyDao.getGroupBuyDetail(groupBuyId);}
+
+    @Override
+    public List<Map> searchGB(String keyword,String searchBy){
+        return groupBuyDao.searchGB(keyword,searchBy);
+    }
 }

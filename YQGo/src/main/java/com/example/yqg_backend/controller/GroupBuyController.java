@@ -79,4 +79,9 @@ public class GroupBuyController {
     public List<Order> getGroupBuyStatistics(@RequestParam("groupBuyId") Integer groupBuyId){
         return null;
     }
+
+    @RequestMapping(value = "/searchGB",method = RequestMethod.GET)
+    public List<Map> searchGB(@RequestParam("keyword") String keyword,@RequestParam("searchBy") String searchBy){
+        System.out.println("search GB!");
+        return groupBuyService.searchGB(keyword,searchBy   );}
 }

@@ -14,4 +14,10 @@ public interface GroupBuyRepository extends JpaRepository<Groupbuy, Integer> {
 
     @Query(value = "SELECT gb FROM Groupbuy gb WHERE gb.id=:groupBuyId")
     Groupbuy findByGroupBuyId(@Param("groupBuyId") Integer groupBuyId);
+
+    @Query(value = "SELECT gb FROM Groupbuy gb WHERE gb.user.name LIKE :keyword")
+    List<Groupbuy> getGBByuserName(String keyword);
+
+    @Query(value = "SELECT gb FROM Groupbuy gb")
+    List<Groupbuy> getGroupbuys();
 }
