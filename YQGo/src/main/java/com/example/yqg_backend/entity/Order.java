@@ -48,7 +48,7 @@ public class Order {
     @JoinColumn(name = "userId")
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "groupBuyId")
     private Groupbuy groupBuy;
 

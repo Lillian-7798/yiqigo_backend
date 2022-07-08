@@ -28,6 +28,7 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 
     @Autowired
     private GroupBuyItemDao groupBuyItemDao;
+    
     @Override
     public void addGroupBuy(Integer userID, String title, String description, Integer logisticsType, Timestamp startTime,
                             Timestamp endTime, List<RequestGoods2> goodslist){
@@ -55,6 +56,11 @@ public class GroupBuyServiceImpl implements GroupBuyService {
     @Override
     public Map<String, Object> getGroupBuyDetail(Integer groupBuyId) {
         return groupBuyDao.getGroupBuyDetail(groupBuyId);
+    }
+
+    @Override
+    public List<Map> searchGB(String keyword,String searchBy) {
+        return groupBuyDao.searchGB(keyword,searchBy);
     }
 
     @Override

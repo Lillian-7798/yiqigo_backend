@@ -14,7 +14,7 @@ public class Orderitem {
     private Order order;
 
     @MapsId("goodsId")
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "goodsId", nullable = false)
     private Good goods;
 

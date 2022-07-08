@@ -11,4 +11,6 @@ public interface GroupBuyDao {
     Groupbuy getGroupBuy(Integer groupBuyId);
     boolean deleteGroupBuy(Integer groupBuyId);
     void addGroupbuy(Groupbuy groupbuy);
+
+    List<Map> searchGB(String keyword,String searchBy);
 }
