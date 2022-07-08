@@ -23,7 +23,6 @@ public class GroupbuyitemId implements Serializable {
         this.goodsId=goodsId;
         this.groupBuyId=groupBuyId;
     }
-
     public Integer getGroupBuyId() {
         return groupBuyId;
     }

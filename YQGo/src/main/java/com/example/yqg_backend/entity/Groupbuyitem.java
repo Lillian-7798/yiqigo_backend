@@ -28,7 +28,6 @@ public class Groupbuyitem {
     private Boolean isSecKill;
 
     public Groupbuyitem(){}
-
     public Groupbuyitem(Good good,Integer inventory,Integer cost,Boolean isSecKill){
         this.goods=good;
         this.inventory=inventory;

@@ -15,4 +15,7 @@ public interface GroupBuyDao {
     boolean earlyEnd(Integer groupBuyId);
     Map<String, Object> getGroupBuyInfo(Integer groupBuyId);
     boolean ModifyGroupBuy(ModifiedGroupBuy modifiedGroupBuy);
+    void addGroupbuy(Groupbuy groupbuy);
+
+    List<Map> searchGB(String keyword,String searchBy);
 }

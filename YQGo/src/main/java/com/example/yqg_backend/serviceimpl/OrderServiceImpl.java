@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 @Service
 public class OrderServiceImpl implements OrderService {
+
     @Autowired
     private OrderDao orderDao;
     @Autowired
@@ -71,6 +72,16 @@ public class OrderServiceImpl implements OrderService {
             item.setOrder(order);
         }
         orderItemDao.addOrderItems(orderitems);
+    }
+
+    @Override
+    public List<Map<String, Object>> getOrderByUser(Integer userID){
+      return orderDao.getOrderByUser(userID);
+    }
+
+    @Override
+    public Map<String,Object> getOrderDetail(Integer orderID){
+      return orderDao.getOrderDetail(orderID);
     }
 
     @Override
