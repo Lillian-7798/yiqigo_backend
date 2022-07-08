@@ -21,6 +21,9 @@ public class User {
     @Column(name = "mobile", length = 20)
     private String mobile;
 
+    @Column(name = "money")
+    private Integer money;
+
     @Column(name = "address", length = 50)
     private String address;
 
@@ -111,5 +114,12 @@ public class User {
         this.id = id;
     }
 
-//TODO [JPA Buddy] generate columns from DB
+    public Integer getMoney() {
+        return money;
+    }
+
+    public void setMoney(Integer money) {
+        this.money = money;
+    }
+    //TODO [JPA Buddy] generate columns from DB
 }

@@ -40,6 +40,13 @@ public class Order {
     @Column(name = "time")
     private Timestamp time;
 
+// status=0 ----- 已支付
+// status=1 ----- 运输中
+// status=2 ----- 已提货
+// status=3 ----- 已退款
+    @Column(name = "status")
+    private Integer status;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
@@ -51,9 +58,6 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<Orderitem> orderitems;
 
-    @Column(name = "status")
-    private Integer status;
-
     public Order() {
 
     }
@@ -63,14 +67,6 @@ public class Order {
         this.deliverAddr = deliverAddr;
         this.receiveAddr = receiveAddr;
         this.note = note;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
     }
 
     public List<Orderitem> getOrderitems() {
@@ -136,6 +132,10 @@ public class Order {
     public void setNote(String note) {
         this.note = note;
     }
+
+    public Integer getStatus() { return status; }
+
+    public void setStatus(Integer status) { this.status = status; }
 
     public String getReceiveAddr() {
         return receiveAddr;
