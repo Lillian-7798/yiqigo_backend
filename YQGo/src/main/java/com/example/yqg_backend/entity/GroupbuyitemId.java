@@ -16,6 +16,14 @@ public class GroupbuyitemId implements Serializable {
     @Column(name = "goodsId", nullable = false)
     private Integer goodsId;
 
+    public GroupbuyitemId(){
+
+    }
+    public GroupbuyitemId(Integer groupBuyId,Integer goodsId){
+        this.goodsId=goodsId;
+        this.groupBuyId=groupBuyId;
+    }
+
     public Integer getGroupBuyId() {
         return groupBuyId;
     }

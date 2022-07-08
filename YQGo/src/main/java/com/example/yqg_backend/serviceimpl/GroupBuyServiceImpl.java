@@ -1,10 +1,12 @@
 package com.example.yqg_backend.serviceimpl;
 
 import com.example.yqg_backend.dao.GroupBuyDao;
+import com.example.yqg_backend.entity.ModifiedGroupBuy;
 import com.example.yqg_backend.service.GroupBuyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -30,4 +32,25 @@ public class GroupBuyServiceImpl implements GroupBuyService {
             return true;
         return false;
     }
+
+    @Override
+    public boolean earlyEnd(Integer groupBuyId) {
+        if(groupBuyDao.earlyEnd(groupBuyId))
+            return true;
+        else return false;
+    }
+
+    @Override
+    public Map<String, Object> getGroupBuyInfo(Integer groupBuyId) {
+        return groupBuyDao.getGroupBuyInfo(groupBuyId);
+    }
+
+    @Override
+    public boolean ModifyGroupBuy(ModifiedGroupBuy modifiedGroupBuy) {
+        if(groupBuyDao.ModifyGroupBuy(modifiedGroupBuy))
+            return true;
+        return false;
+    }
+
+
 }
