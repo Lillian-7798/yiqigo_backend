@@ -7,4 +7,6 @@ import java.util.List;
 public interface GroupBuyItemDao {
 
     void addGroupBuyItems(List<Groupbuyitem> groupbuyitems);
+    void updateGroupBuyItems(List<Groupbuyitem> groupbuyitems);
+    Groupbuyitem getGroupBuyItem(Integer groupbuyId, Integer goodsId);
 }

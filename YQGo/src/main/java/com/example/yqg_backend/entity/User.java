@@ -39,16 +39,14 @@ public class User {
     @OneToMany(mappedBy = "userId2")
     private List<Dialog> dialogs2 = new ArrayList<>();
 
-    @Column(name = "money")
-    private Integer money;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "member_leader", joinColumns = {
+            @JoinColumn(name = "member_id", referencedColumnName = "userId")}, inverseJoinColumns = {
+            @JoinColumn(name = "leader_id", referencedColumnName = "userId")})
+    private List<User> leaders = new ArrayList<>();
 
-    public Integer getMoney() {
-        return money;
-    }
-
-    public void setMoney(Integer money) {
-        this.money = money;
-    }
+    @ManyToMany(mappedBy = "leaders")
+    private List<User> members = new ArrayList<>();
 
     public List<Dialog> getDialogs2() {
         return dialogs2;

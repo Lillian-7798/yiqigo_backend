@@ -4,4 +4,5 @@ import com.example.yqg_backend.entity.User;
 
 public interface UserDao {
     User getUser(Integer userId);
+    void updateUser(User user);
 }

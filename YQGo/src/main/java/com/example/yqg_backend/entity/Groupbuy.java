@@ -22,6 +22,9 @@ public class Groupbuy {
     @Column(name = "description", length = 100)
     private String description;
 
+// logisticsType=0 ----- 用户自提
+// logisticsType=1 ----- 国内物流
+// logisticsType=2 ----- 国际物流
     @Column(name = "logisticsType")
     private Integer logisticsType;
 

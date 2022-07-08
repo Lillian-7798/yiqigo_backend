@@ -62,10 +62,8 @@ public class Order {
 
     }
 
-    public Order(Integer logisticsType, String deliverAddr, String receiveAddr, String note) {
+    public Order(Integer logisticsType, String note) {
         this.logisticsType = logisticsType;
-        this.deliverAddr = deliverAddr;
-        this.receiveAddr = receiveAddr;
         this.note = note;
     }
 

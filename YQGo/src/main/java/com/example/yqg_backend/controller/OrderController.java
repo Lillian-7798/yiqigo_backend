@@ -45,10 +45,8 @@ public class OrderController {
 
     // RequestOrder为前端发送的请求内容
     @RequestMapping(value = "/addOrder",method = RequestMethod.POST)
-    public boolean addOrder(@RequestBody RequestOrder requestOrder){
-        System.out.println("add order!");
-        orderService.addOrder(requestOrder);
-        return true;
+    public int addOrder(@RequestBody RequestOrder requestOrder){
+        return orderService.addOrder(requestOrder);
     }
 
     @RequestMapping(value = "/getOrdersByGroupBuy",method = RequestMethod.GET)
