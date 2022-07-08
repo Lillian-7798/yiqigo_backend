@@ -1,5 +1,6 @@
 package com.example.yqg_backend.controller;
 
+import com.example.yqg_backend.entity.ModifiedGroupBuy;
 import com.example.yqg_backend.entity.Order;
 import com.example.yqg_backend.entity.RequestGroupBuy;
 import com.example.yqg_backend.service.GroupBuyService;
@@ -56,9 +57,38 @@ public class GroupBuyController {
         return false;
     }
 
-    @RequestMapping("endGroupBuy")
-    public boolean endGroupBuy(@RequestParam("groupBuyId") Integer groupBuyId) {
+    @RequestMapping(value = "/getGroupBuyInfo",method = RequestMethod.GET)
+    public Map<String, Object> getGroupBuyInfo(@RequestParam("GroupBuyId") Integer GroupBuyId){
+        return groupBuyService.getGroupBuyInfo(GroupBuyId);
+    }
+
+    /*
+    @RequestMapping(value = "/addGroupBuy",method = RequestMethod.POST)
+    public boolean addGroupBuy(@RequestBody RequestGroupBuy requestGroupBuy){
+        System.out.println("add GroupBuy!");
+        Timestamp startTime =Timestamp.valueOf(requestGroupBuy.getStartTime());
+        Timestamp endTime = Timestamp.valueOf(requestGroupBuy.getEndTime());
+        groupBuyService.addGroupBuy(requestGroupBuy.getUserid(), requestGroupBuy.getTitle(),requestGroupBuy.getDescription(),requestGroupBuy.getLogisticsType()
+                ,startTime,endTime,requestGroupBuy.getGoodList());
         return true;
+    }
+    */
+    @RequestMapping(value = "/ModifyGroupBuy",method = RequestMethod.POST)
+    public boolean ModifyGroupBuy(@RequestBody ModifiedGroupBuy modifiedGroupBuy)
+    {
+        System.out.println("here");
+        if(groupBuyService.ModifyGroupBuy(modifiedGroupBuy))
+            return true;
+        return false;
+    }
+
+
+
+    @RequestMapping(value = "/earlyEnd")
+    public boolean earlyEnd(@RequestParam("groupBuyId") Integer groupBuyId) {
+        if(groupBuyService.earlyEnd(groupBuyId))
+            return true;
+        return false;
     }
 
     @RequestMapping(value = "/updateGroupBuyInventory")

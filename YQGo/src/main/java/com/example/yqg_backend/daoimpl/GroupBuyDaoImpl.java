@@ -2,13 +2,13 @@ package com.example.yqg_backend.daoimpl;
 
 import com.example.yqg_backend.dao.GroupBuyDao;
 import com.example.yqg_backend.entity.*;
-import com.example.yqg_backend.repository.GroupbuyRepository;
-import com.example.yqg_backend.repository.OrderRepository;
-import com.example.yqg_backend.repository.UserRepository;
+import com.example.yqg_backend.repository.*;
+import javafx.scene.canvas.GraphicsContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -22,6 +22,12 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private GoodRepository goodRepository;
+
+    @Autowired
+    private GroupbuyitemRepository groupbuyitemRepository;
 
     @Override
     public List<Map<String, Object>> getUserGB(Integer uid) {
@@ -106,6 +112,7 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
             m.put("name", g.getName());
             m.put("image", g.getImages());
             m.put("price", g.getPrice());
+            m.put("inventory",gbi.getInventory());
             Integer number = 0;
             m.put("number", number);
             goods_list.add(m);
@@ -200,6 +207,85 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
         return false;
     }
 
+    @Override
+    public boolean earlyEnd(Integer groupBuyId) {
+        Groupbuy gb = groupbuyRepository.findByGroupBuyId(groupBuyId);
+        if(gb.getStatus() == 1) {
+            gb.setStatus(0);
+            groupbuyRepository.save(gb);
+            return true;
+        }
+       return false;
+    }
+
+    @Override
+    public Map<String, Object> getGroupBuyInfo(Integer groupBuyId) {
+        Groupbuy gb = groupbuyRepository.findByGroupBuyId(groupBuyId);
+        Map<String ,Object> rMap = new HashMap<>();
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Timestamp startTime = gb.getStartTime();
+        Timestamp endTime = gb.getEndTime();
+        String startDate = formatter.format(startTime);
+        String endDate = formatter.format(endTime);
+
+        List<Map<String,Object>> goods = new ArrayList<>();
+        List<Groupbuyitem> gbiList = gb.getGroupbuyitems();
+        for(Groupbuyitem gbi : gbiList) {
+            Map<String, Object> map = new HashMap<>();
+            Good g = gbi.getGoods();
+            map.put("name",g.getName());
+            map.put("goods_des",g.getDescription());
+            List<String> image = new ArrayList<>();
+            image.add(g.getImages());
+            map.put("image",image);
+            map.put("selling_price",g.getPrice());
+            map.put("inventory",gbi.getInventory());
+            map.put("cost_price",gbi.getCost());
+            map.put("iskill",gbi.getIsSecKill());
+            goods.add(map);
+        }
+        rMap.put("title",gb.getTitle());
+        rMap.put("description",gb.getDescription());
+        rMap.put("curNow",gb.getLogisticsType());
+        rMap.put("startDate",startDate);
+        rMap.put("endDate",endDate);
+        rMap.put("goods",goods);
+        return rMap;
+    }
+
+    @Override
+    public boolean ModifyGroupBuy(ModifiedGroupBuy modifiedGroupBuy) {
+        Groupbuy groupbuy = groupbuyRepository.findByGroupBuyId(modifiedGroupBuy.getGroupBuyId());
+        groupbuy.setTitle(modifiedGroupBuy.getTitle());
+        groupbuy.setDescription(modifiedGroupBuy.getDescription());
+        groupbuy.setLogisticsType(modifiedGroupBuy.getLogisticsType());
+        groupbuy.setStartTime(Timestamp.valueOf(modifiedGroupBuy.getStartTime()));
+        groupbuy.setEndTime(Timestamp.valueOf(modifiedGroupBuy.getEndTime()));
+
+        List<Groupbuyitem> gbiList = groupbuy.getGroupbuyitems();    //将原有的GroupBuyItem和goods删除
+        for(Groupbuyitem gbi: gbiList) {
+            Good g = gbi.getGoods();
+            groupbuyitemRepository.delete(gbi);
+            goodRepository.delete(g);
+        }
+        List<Groupbuyitem> groupbuyitems = new ArrayList<>();
+        List<ModifiedGoods> goodslist = modifiedGroupBuy.getGoodList();
+
+        for(ModifiedGoods item:goodslist){
+            Good good = new Good(item.getName(),item.getGoods_des(),item.getSelling_price(),item.getImage().get(0));
+            goodRepository.save(good);
+            groupbuyitems.add(new Groupbuyitem(good,item.getInventory(),item.getCost_price(),item.isIskill()));
+        }
+        for(Groupbuyitem gbi:groupbuyitems){
+            gbi.setId(new GroupbuyitemId(groupbuy.getId(),gbi.getGoods().getId()));
+            gbi.setGroupBuy(groupbuy);
+        }
+        groupbuyitemRepository.saveAll(groupbuyitems);
+
+        return true;
+    }
+    
     @Override
     public void addGroupbuy(Groupbuy groupbuy){groupbuyRepository.save(groupbuy);}
 }
