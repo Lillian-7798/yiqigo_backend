@@ -40,6 +40,7 @@ public class Groupbuy {
 
 //    status=0 ----- 团购提前结束
 //    status=1 ----- 团购依据时间判断是否结束
+//    status=2 ----- 团购已删除
     @Column(name = "status")
     private Integer status;
 

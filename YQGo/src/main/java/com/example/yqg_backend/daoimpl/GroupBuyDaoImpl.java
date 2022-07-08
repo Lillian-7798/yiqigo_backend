@@ -1,11 +1,9 @@
 package com.example.yqg_backend.daoimpl;
 
 import com.example.yqg_backend.dao.GroupBuyDao;
-import com.example.yqg_backend.entity.Good;
-import com.example.yqg_backend.entity.Groupbuy;
-import com.example.yqg_backend.entity.Groupbuyitem;
-import com.example.yqg_backend.entity.User;
-import com.example.yqg_backend.repository.GroupBuyRepository;
+import com.example.yqg_backend.entity.*;
+import com.example.yqg_backend.repository.GroupbuyRepository;
+import com.example.yqg_backend.repository.OrderRepository;
 import com.example.yqg_backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,10 +15,13 @@ import java.util.*;
 @Repository
 public class GroupBuyDaoImpl implements GroupBuyDao {
     @Autowired
-    private GroupBuyRepository groupbuyRepository;
+    private GroupbuyRepository groupbuyRepository;
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     @Override
     public List<Map<String, Object>> getUserGB(Integer uid) {
@@ -43,6 +44,8 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
                 status = "正在抢购中";
             else if(startTime.getTime() > current.getTime() && sta==1)
                 status = "未开始";
+            else if(sta==2)
+                status = "已删除";
 
             List<Groupbuyitem> listGoods = gb.getGroupbuyitems();
             List<String> url = new ArrayList<>();
@@ -174,6 +177,27 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
     @Override
     public Groupbuy getGroupBuy(Integer groupBuyId) {
         return groupbuyRepository.getById(groupBuyId);
+    }
+
+    @Override
+    public boolean deleteGroupBuy(Integer groupBuyId) {
+        Groupbuy gb = groupbuyRepository.findByGroupBuyId(groupBuyId);
+        if(gb.getStatus() != 2) {
+            gb.setStatus(2);
+            List<Order> lo = gb.getOrders();
+            for(Order o : lo) {
+                if(o.getStatus()!= 3) {
+                    o.setStatus(3);
+                    User u = o.getUser();
+                    u.setMoney(u.getMoney()+o.getPrice());
+                    userRepository.save(u);
+                    orderRepository.save(o);
+                }
+            }
+            groupbuyRepository.save(gb);
+            return true;
+        }
+        return false;
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.example.yqg_backend.controller;
 
 import com.example.yqg_backend.entity.Order;
-import com.example.yqg_backend.entity.RequestGoods2;
 import com.example.yqg_backend.entity.RequestGroupBuy;
 import com.example.yqg_backend.service.GroupBuyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +51,9 @@ public class GroupBuyController {
 
     @RequestMapping(value = "/deleteGroupBuy")
     public boolean deleteGroupBuy(@RequestParam("groupBuyId") Integer groupBuyId) {
-        return true;
+        if(groupBuyService.deleteGroupBuy(groupBuyId))
+            return true;
+        return false;
     }
 
     @RequestMapping("endGroupBuy")

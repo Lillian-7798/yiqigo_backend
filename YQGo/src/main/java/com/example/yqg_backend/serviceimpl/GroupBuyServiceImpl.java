@@ -5,13 +5,10 @@ import com.example.yqg_backend.dao.GroupBuyDao;
 import com.example.yqg_backend.dao.GroupBuyItemDao;
 import com.example.yqg_backend.dao.UserDao;
 import com.example.yqg_backend.entity.*;
-
-import com.example.yqg_backend.dao.GroupBuyDao;
 import com.example.yqg_backend.service.GroupBuyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +28,7 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 
     @Autowired
     private GroupBuyItemDao groupBuyItemDao;
+    
     @Override
     public void addGroupBuy(Integer userID, String title, String description, Integer logisticsType, Timestamp startTime,
                             Timestamp endTime, List<RequestGoods2> goodslist){
@@ -57,10 +55,18 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 
     @Override
     public Map<String, Object> getGroupBuyDetail(Integer groupBuyId) {
-        return groupBuyDao.getGroupBuyDetail(groupBuyId);}
+        return groupBuyDao.getGroupBuyDetail(groupBuyId);
+    }
 
     @Override
-    public List<Map> searchGB(String keyword,String searchBy){
+    public List<Map> searchGB(String keyword,String searchBy) {
         return groupBuyDao.searchGB(keyword,searchBy);
+    }
+
+    @Override
+    public boolean deleteGroupBuy(Integer groupBuyId) {
+        if(groupBuyDao.deleteGroupBuy(groupBuyId))
+            return true;
+        return false;
     }
 }

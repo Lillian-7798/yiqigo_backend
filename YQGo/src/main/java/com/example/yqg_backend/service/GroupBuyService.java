@@ -16,4 +16,5 @@ public interface GroupBuyService {
     Map<String, Object> getGroupBuyDetail(Integer groupBuyId);
 
     List<Map> searchGB(String keyword,String searchBy);
+    boolean deleteGroupBuy(Integer groupBuyId);
 }
