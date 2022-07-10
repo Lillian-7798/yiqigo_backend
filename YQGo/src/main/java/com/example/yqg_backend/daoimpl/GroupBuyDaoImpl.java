@@ -73,6 +73,7 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
 
         Groupbuy gb = groupbuyRepository.findByGroupBuyId(groupBuyId);
         map.put("storeName",gb.getUser().getName());
+        map.put("storeId",gb.getUser().getId());
         map.put("groupName", gb.getTitle());
 
         Integer loType = gb.getLogisticsType();

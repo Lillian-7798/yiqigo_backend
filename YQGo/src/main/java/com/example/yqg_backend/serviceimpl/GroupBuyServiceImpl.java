@@ -35,7 +35,7 @@ public class GroupBuyServiceImpl implements GroupBuyService {
     public void addGroupBuy(Integer userID, String title, String description, Integer logisticsType, Timestamp startTime,
                             Timestamp endTime, List<RequestGoods2> goodslist){
         Groupbuy groupbuy = new Groupbuy(title,description,logisticsType,startTime,endTime);
-        groupbuy.setUser(userDao.getUser(userID));
+        groupbuy.setUser(userDao.getUserById(userID));
         groupBuyDao.addGroupbuy(groupbuy);
 
         List<Groupbuyitem> groupbuyitems = new ArrayList<>();

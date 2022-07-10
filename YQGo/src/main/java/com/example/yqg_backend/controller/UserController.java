@@ -27,4 +27,9 @@ public class UserController {
     public boolean updateUseer(@RequestParam("userID") String userID,@RequestParam("address") String address){
         return true;
     }
+
+    @RequestMapping(value = "/subscription",method = RequestMethod. GET)
+    public boolean subscription(@RequestParam("leader_id") Integer lid,@RequestParam("member_id") Integer mid){
+        return userService.subscription(lid,mid);
+    }
 }
