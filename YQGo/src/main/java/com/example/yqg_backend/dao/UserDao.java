@@ -2,6 +2,14 @@ package com.example.yqg_backend.dao;
 
 import com.example.yqg_backend.entity.User;
 
+import java.util.Map;
+
 public interface UserDao {
-    User getUser(Integer userId);
+    Map<String,Object> getUser(Integer userId);
+
+    Map<String,Object> getUserByName(String name);
+
+    Boolean checkUser(String userName,String password);
+
+    Boolean addUser(String userName,String password);
 }
