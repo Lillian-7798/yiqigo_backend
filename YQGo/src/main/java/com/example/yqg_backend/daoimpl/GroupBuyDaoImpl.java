@@ -114,7 +114,7 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
     @Override
     public List<Map> searchGB(String keyword,String searchBy){
         if(searchBy.equals("团长名")){
-            System.out.println(1);
+//            System.out.println(1);
             String key="%"+keyword+"%";
             List<Groupbuy> groupbuys=groupbuyRepository.getGBByuserName(key);
             List<Map> GBs = new ArrayList<>();
@@ -139,7 +139,7 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
         }
 //       if(searchBy=="商品名称")
         else{
-            System.out.println(searchBy);
+//            System.out.println(searchBy);
             List<Groupbuy> groupbuys=new ArrayList<>();
             //获取GroupBuyList
             for(Groupbuy temp:groupbuyRepository.getGroupbuys()){

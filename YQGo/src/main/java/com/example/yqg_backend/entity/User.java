@@ -36,6 +36,17 @@ public class User {
     @OneToMany(mappedBy = "userId2")
     private List<Dialog> dialogs2 = new ArrayList<>();
 
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "member_leader", joinColumns = {
+            @JoinColumn(name = "member_id", referencedColumnName = "userId")}, inverseJoinColumns = {
+            @JoinColumn(name = "leader_id", referencedColumnName = "userId")})
+    private List<User> leaders = new ArrayList<>();
+
+
+    @ManyToMany(mappedBy = "leaders")
+    private List<User> members = new ArrayList<>();
+
     public List<Dialog> getDialogs2() {
         return dialogs2;
     }
@@ -107,5 +118,22 @@ public class User {
     public void setMoney(Integer money) {
         this.money = money;
     }
+
+    public List<User> getLeaders() {
+        return leaders;
+    }
+
+    public List<User> getMembers() {
+        return members;
+    }
+
+    public void setLeaders(List<User> leaders) {
+        this.leaders = leaders;
+    }
+
+    public void setMembers(List<User> members) {
+        this.members = members;
+    }
+
     //TODO [JPA Buddy] generate columns from DB
 }
