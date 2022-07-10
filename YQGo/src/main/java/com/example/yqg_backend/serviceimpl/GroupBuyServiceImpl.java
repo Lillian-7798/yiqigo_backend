@@ -69,4 +69,25 @@ public class GroupBuyServiceImpl implements GroupBuyService {
             return true;
         return false;
     }
+
+    @Override
+    public boolean earlyEnd(Integer groupBuyId) {
+        if(groupBuyDao.earlyEnd(groupBuyId))
+            return true;
+        else return false;
+    }
+
+    @Override
+    public Map<String, Object> getGroupBuyInfo(Integer groupBuyId) {
+        return groupBuyDao.getGroupBuyInfo(groupBuyId);
+    }
+
+    @Override
+    public boolean ModifyGroupBuy(ModifiedGroupBuy modifiedGroupBuy) {
+        if(groupBuyDao.ModifyGroupBuy(modifiedGroupBuy))
+            return true;
+        return false;
+    }
+
+
 }
