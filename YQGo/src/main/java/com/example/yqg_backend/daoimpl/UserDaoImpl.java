@@ -20,7 +20,12 @@ public class UserDaoImpl implements UserDao {
     private UserauthRepository userauthRepository;
 
     @Override
-    public Map<String,Object> getUser(Integer userId) {
+    public User getUser(Integer userId) {
+        return userRepository.getById(userId);
+    }
+
+    @Override
+    public Map<String,Object> getUser2(Integer userId) {
         User u=userRepository.getUserById(userId);
         Integer id=u.getId();
         String name=u.getName();
@@ -70,5 +75,10 @@ public class UserDaoImpl implements UserDao {
         userauth.setId(u.getId());
         userauthRepository.save(userauth);
         return true;
+    }
+
+    @Override
+    public void updateUser(User user) {
+        userRepository.save(user);
     }
 }

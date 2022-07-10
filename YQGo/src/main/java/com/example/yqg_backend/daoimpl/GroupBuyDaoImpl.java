@@ -83,7 +83,8 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
         Groupbuy gb = groupbuyRepository.findByGroupBuyId(groupBuyId);
         map.put("storeName",gb.getUser().getName());
         map.put("groupName", gb.getTitle());
-
+        map.put("loType", gb.getLogisticsType());
+        /*
         Integer loType = gb.getLogisticsType();
         String mode = "用户自提";   //loType == 0
         if(loType == 1)
@@ -91,6 +92,7 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
         else if(loType == 2)
             mode = "国际物流";
         map.put("mode", mode);
+        */
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Timestamp startTime = gb.getStartTime();
@@ -109,6 +111,7 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
         for(Groupbuyitem gbi : gbiList) {
             Map<String, Object> m = new HashMap<String, Object>();
             Good g = gbi.getGoods();
+            m.put("goodsId", g.getId());
             m.put("name", g.getName());
             m.put("image", g.getImages());
             m.put("price", g.getPrice());

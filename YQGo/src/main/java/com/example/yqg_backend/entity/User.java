@@ -1,11 +1,14 @@
 package com.example.yqg_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "user")
+@JsonIgnoreProperties({"groupbuys", "orders", "dialogs1", "dialogs2"})
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -35,6 +38,15 @@ public class User {
 
     @OneToMany(mappedBy = "userId2")
     private List<Dialog> dialogs2 = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "member_leader", joinColumns = {
+            @JoinColumn(name = "member_id", referencedColumnName = "userId")}, inverseJoinColumns = {
+            @JoinColumn(name = "leader_id", referencedColumnName = "userId")})
+    private List<User> leaders = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "leaders")
+    private List<User> members = new ArrayList<>();
 
     public List<Dialog> getDialogs2() {
         return dialogs2;

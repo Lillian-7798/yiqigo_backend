@@ -5,7 +5,9 @@ import com.example.yqg_backend.entity.User;
 import java.util.Map;
 
 public interface UserDao {
-    Map<String,Object> getUser(Integer userId);
+    User getUser(Integer userId);
+    void updateUser(User user);
+    Map<String,Object> getUser2(Integer userId);
 
     Map<String,Object> getUserByName(String name);
 

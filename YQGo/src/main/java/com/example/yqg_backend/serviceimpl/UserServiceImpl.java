@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Map<String,Object> getUser(Integer userID){
-        return userDao.getUser(userID);
+        return userDao.getUser2(userID);
     }
 
     @Override

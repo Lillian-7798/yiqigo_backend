@@ -1,9 +1,12 @@
 package com.example.yqg_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "groupbuyitem")
+@JsonIgnoreProperties({"groupBuy"})
 public class Groupbuyitem {
     @EmbeddedId
     private GroupbuyitemId id;
