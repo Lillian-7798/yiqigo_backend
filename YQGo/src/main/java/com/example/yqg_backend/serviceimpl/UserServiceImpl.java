@@ -5,16 +5,16 @@ import com.example.yqg_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
-<<<<<<< Updated upstream
-=======
 
     @Override
     public Map<String,Object> getUser(Integer userID){
-        return userDao.getUser(userID);
+        return userDao.getUser2(userID);
     }
 
     @Override
@@ -35,5 +35,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean subscription(Integer lid,Integer mid){return userDao.subscription(lid,mid);}
 
->>>>>>> Stashed changes
+    @Override
+    public boolean cancelsubscription(Integer lid,Integer mid){return userDao.cancelsubscription(lid,mid);}
+
 }

@@ -36,10 +36,6 @@ public class User {
     @OneToMany(mappedBy = "userId2")
     private List<Dialog> dialogs2 = new ArrayList<>();
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "member_leader", joinColumns = {
             @JoinColumn(name = "member_id", referencedColumnName = "userId")}, inverseJoinColumns = {
@@ -122,17 +118,6 @@ public class User {
         this.money = money;
     }
 
-<<<<<<< Updated upstream
-    public List<User> getLeaders() {
-        return leaders;
-    }
-
-    public List<User> getMembers() {
-        return members;
-    }
-
-=======
->>>>>>> Stashed changes
     public void setLeaders(List<User> leaders) {
         this.leaders = leaders;
     }
@@ -141,8 +126,6 @@ public class User {
         this.members = members;
     }
 
-<<<<<<< Updated upstream
-=======
     public List<User> getMembers() {
         return members;
     }
@@ -151,6 +134,6 @@ public class User {
         return leaders;
     }
 
->>>>>>> Stashed changes
+
     //TODO [JPA Buddy] generate columns from DB
 }

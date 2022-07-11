@@ -1,25 +1,31 @@
 package com.example.yqg_backend.daoimpl;
 
-import com.example.yqg_backend.dao.UserDao;
-import com.example.yqg_backend.entity.User;
-import com.example.yqg_backend.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+        import com.example.yqg_backend.dao.UserDao;
+        import com.example.yqg_backend.entity.User;
+        import com.example.yqg_backend.entity.Userauth;
+        import com.example.yqg_backend.repository.UserRepository;
+        import com.example.yqg_backend.repository.UserauthRepository;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.stereotype.Repository;
+
+        import java.util.HashMap;
+        import java.util.Map;
 
 @Repository
 public class UserDaoImpl implements UserDao {
     @Autowired
     private UserRepository userRepository;
 
-<<<<<<< Updated upstream
-=======
     @Autowired
     private UserauthRepository userauthRepository;
 
     @Override
-    public User getUserById(Integer userId){return userRepository.getUserById(userId);}
+    public User getUser(Integer userId) {
+        return userRepository.getById(userId);
+    }
+
     @Override
-    public Map<String,Object> getUser(Integer userId) {
+    public Map<String,Object> getUser2(Integer userId) {
         User u=userRepository.getUserById(userId);
         Integer id=u.getId();
         String name=u.getName();
@@ -56,10 +62,24 @@ public class UserDaoImpl implements UserDao {
         return false;
     }
 
->>>>>>> Stashed changes
     @Override
-    public User getUser(Integer userId) {
-        return userRepository.getById(userId);
+    public Boolean addUser(String userName,String password){
+        Userauth ua = userauthRepository.getUserauthByName(userName);
+        if (ua!=null) return false;
+        User u=new User();
+        u.setName(userName);
+        userRepository.save(u);
+        Userauth userauth=new Userauth();
+        userauth.setUsername(userName);
+        userauth.setPassword(password);
+        userauth.setId(u.getId());
+        userauthRepository.save(userauth);
+        return true;
+    }
+
+    @Override
+    public void updateUser(User user) {
+        userRepository.save(user);
     }
 
     @Override
@@ -75,4 +95,17 @@ public class UserDaoImpl implements UserDao {
             return true;
         }
     }
+
+    @Override
+    public boolean cancelsubscription(Integer lid,Integer mid){
+        if(lid==mid) return false;
+        else{
+            User leader = userRepository.getUserById(lid);
+            User member = userRepository.getUserById(mid);
+            member.getLeaders().remove(leader);
+            userRepository.save(member);
+            return true;
+        }
+    }
 }
+

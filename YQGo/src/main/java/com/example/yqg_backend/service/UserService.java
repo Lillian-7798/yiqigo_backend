@@ -1,9 +1,10 @@
 package com.example.yqg_backend.service;
 
 
+import java.util.Map;
+
 public interface UserService {
-<<<<<<< Updated upstream
-=======
+
     Map<String,Object> getUser(Integer userID);
 
     Map<String,Object> getUserByName(String name);
@@ -12,5 +13,7 @@ public interface UserService {
 
     Boolean addUser(String userName,String password);
     boolean subscription(Integer lid,Integer mid);
->>>>>>> Stashed changes
+
+    boolean cancelsubscription(Integer lid,Integer mid);
+
 }

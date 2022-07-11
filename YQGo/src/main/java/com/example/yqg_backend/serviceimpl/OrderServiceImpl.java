@@ -41,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
                 requestOrder.getDeliverAddr(),
                 requestOrder.getReceiveAddr(),
                 requestOrder.getNote());
-        order.setUser(userDao.getUserById(requestOrder.getUserId()));
+        order.setUser(userDao.getUser(requestOrder.getUserId()));
         order.setGroupBuy(groupBuyDao.getGroupBuy(requestOrder.getGroupBuyId()));
         order.setTime(new Timestamp(System.currentTimeMillis()));
         order.setStatus(1);         // 暂时设状态为1
