@@ -5,13 +5,10 @@ import com.example.yqg_backend.dao.GroupBuyDao;
 import com.example.yqg_backend.dao.GroupBuyItemDao;
 import com.example.yqg_backend.dao.UserDao;
 import com.example.yqg_backend.entity.*;
-
-import com.example.yqg_backend.dao.GroupBuyDao;
 import com.example.yqg_backend.service.GroupBuyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +28,7 @@ public class GroupBuyServiceImpl implements GroupBuyService {
 
     @Autowired
     private GroupBuyItemDao groupBuyItemDao;
+    
     @Override
     public void addGroupBuy(Integer userID, String title, String description, Integer logisticsType, Timestamp startTime,
                             Timestamp endTime, List<RequestGoods2> goodslist){
@@ -60,10 +58,38 @@ public class GroupBuyServiceImpl implements GroupBuyService {
         return groupBuyDao.getGroupBuyDetail(groupBuyId,userId);}
 
     @Override
-    public List<Map> searchGB(String keyword,String searchBy){
+    public List<Map> searchGB(String keyword,String searchBy) {
         return groupBuyDao.searchGB(keyword,searchBy);
     }
 
     @Override
     public List<Map> getIndexGB(Integer userId){return groupBuyDao.getIndexGB(userId);}
+
+    @Override
+    public boolean deleteGroupBuy(Integer groupBuyId) {
+        if(groupBuyDao.deleteGroupBuy(groupBuyId))
+            return true;
+        return false;
+    }
+
+    @Override
+    public boolean earlyEnd(Integer groupBuyId) {
+        if(groupBuyDao.earlyEnd(groupBuyId))
+            return true;
+        else return false;
+    }
+
+    @Override
+    public Map<String, Object> getGroupBuyInfo(Integer groupBuyId) {
+        return groupBuyDao.getGroupBuyInfo(groupBuyId);
+    }
+
+    @Override
+    public boolean ModifyGroupBuy(ModifiedGroupBuy modifiedGroupBuy) {
+        if(groupBuyDao.ModifyGroupBuy(modifiedGroupBuy))
+            return true;
+        return false;
+    }
+
+
 }

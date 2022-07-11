@@ -1,5 +1,6 @@
 package com.example.yqg_backend.service;
 
+import com.example.yqg_backend.entity.ModifiedGroupBuy;
 import com.example.yqg_backend.entity.RequestGoods2;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,4 +19,8 @@ public interface GroupBuyService {
     List<Map> searchGB(String keyword,String searchBy);
 
     List<Map> getIndexGB(Integer userId);
+    boolean deleteGroupBuy(Integer groupBuyId);
+    boolean earlyEnd(Integer groupBuyId);
+    Map<String, Object> getGroupBuyInfo(Integer groupBuyId);
+    boolean ModifyGroupBuy(ModifiedGroupBuy modifiedGroupBuy);
 }

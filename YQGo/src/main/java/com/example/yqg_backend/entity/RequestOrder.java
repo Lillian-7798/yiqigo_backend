@@ -6,8 +6,6 @@ public class RequestOrder {
     private Integer userId;
     private Integer groupBuyId;
     private Integer logisticsType;
-    private String deliverAddr;
-    private String receiveAddr;
     private String note;
 
     private List<RequestGoods> goods;
@@ -34,22 +32,6 @@ public class RequestOrder {
 
     public void setLogisticsType(Integer logisticsType) {
         this.logisticsType = logisticsType;
-    }
-
-    public String getDeliverAddr() {
-        return deliverAddr;
-    }
-
-    public void setDeliverAddr(String deliverAddr) {
-        this.deliverAddr = deliverAddr;
-    }
-
-    public String getReceiveAddr() {
-        return receiveAddr;
-    }
-
-    public void setReceiveAddr(String receiveAddr) {
-        this.receiveAddr = receiveAddr;
     }
 
     public String getNote() {

@@ -12,12 +12,18 @@ import java.util.Map;
 @CrossOrigin
 @RestController
 public class OrderController {
+
     @Autowired
     private OrderService orderService;
 
     @RequestMapping(value = "/getOrderByUser",method = RequestMethod.GET)
-    public Order getOrderByUser(@RequestParam("userID") Integer userID){
-        return null;
+    public List<Map<String, Object>> getOrderByUser(@RequestParam("userID") Integer userID) {
+        return orderService.getOrderByUser(userID);
+    }
+
+    @RequestMapping(value = "/getOrderDetail",method = RequestMethod.GET)
+    public Map<String,Object> getOrderDetail(@RequestParam("orderID") Integer orderID){
+        return orderService.getOrderDetail(orderID);
     }
 
     @RequestMapping(value = "/getOrderByLeader",method = RequestMethod.GET)
@@ -30,12 +36,17 @@ public class OrderController {
         return orderService.getOrderDetailByLeader(orderID);
     }
 
+    @RequestMapping(value = "/cancelOrder",method = RequestMethod.GET)
+    public boolean cancelOrder(@RequestParam("orderId") Integer orderId){
+        if(orderService.cancelOrder(orderId))
+            return true;
+        return false;
+    }
+
     // RequestOrder为前端发送的请求内容
     @RequestMapping(value = "/addOrder",method = RequestMethod.POST)
-    public boolean addOrder(@RequestBody RequestOrder requestOrder){
-        System.out.println("add order!");
-        orderService.addOrder(requestOrder);
-        return true;
+    public int addOrder(@RequestBody RequestOrder requestOrder){
+        return orderService.addOrder(requestOrder);
     }
 
     @RequestMapping(value = "/getOrdersByGroupBuy",method = RequestMethod.GET)

@@ -1,26 +1,33 @@
 package com.example.yqg_backend.daoimpl;
 
 import com.example.yqg_backend.dao.GroupBuyDao;
-import com.example.yqg_backend.entity.Good;
-import com.example.yqg_backend.entity.Groupbuy;
-import com.example.yqg_backend.entity.Groupbuyitem;
-import com.example.yqg_backend.entity.User;
-import com.example.yqg_backend.repository.GroupBuyRepository;
-import com.example.yqg_backend.repository.UserRepository;
+import com.example.yqg_backend.entity.*;
+import com.example.yqg_backend.repository.*;
+import javafx.scene.canvas.GraphicsContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Repository
 public class GroupBuyDaoImpl implements GroupBuyDao {
     @Autowired
-    private GroupBuyRepository groupbuyRepository;
+    private GroupbuyRepository groupbuyRepository;
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
+    private GoodRepository goodRepository;
+
+    @Autowired
+    private GroupbuyitemRepository groupbuyitemRepository;
 
     @Override
     public List<Map<String, Object>> getUserGB(Integer uid) {
@@ -43,6 +50,8 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
                 status = "正在抢购中";
             else if(startTime.getTime() > current.getTime() && sta==1)
                 status = "未开始";
+            else if(sta==2)
+                status = "已删除";
 
             List<Groupbuyitem> listGoods = gb.getGroupbuyitems();
             List<String> url = new ArrayList<>();
@@ -75,7 +84,8 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
         map.put("storeName",gb.getUser().getName());
         map.put("storeId",gb.getUser().getId());
         map.put("groupName", gb.getTitle());
-
+        map.put("loType", gb.getLogisticsType());
+        /*
         Integer loType = gb.getLogisticsType();
         String mode = "用户自提";   //loType == 0
         if(loType == 1)
@@ -83,6 +93,7 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
         else if(loType == 2)
             mode = "国际物流";
         map.put("mode", mode);
+        */
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Timestamp startTime = gb.getStartTime();
@@ -101,9 +112,11 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
         for(Groupbuyitem gbi : gbiList) {
             Map<String, Object> m = new HashMap<String, Object>();
             Good g = gbi.getGoods();
+            m.put("goodsId", g.getId());
             m.put("name", g.getName());
             m.put("image", g.getImages());
             m.put("price", g.getPrice());
+            m.put("inventory",gbi.getInventory());
             Integer number = 0;
             m.put("number", number);
             goods_list.add(m);
@@ -184,6 +197,106 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
         return groupbuyRepository.getById(groupBuyId);
     }
 
+    @Override
+    public boolean deleteGroupBuy(Integer groupBuyId) {
+        Groupbuy gb = groupbuyRepository.findByGroupBuyId(groupBuyId);
+        if(gb.getStatus() != 2) {
+            gb.setStatus(2);
+            List<Order> lo = gb.getOrders();
+            for(Order o : lo) {
+                if(o.getStatus()!= 3) {
+                    o.setStatus(3);
+                    User u = o.getUser();
+                    u.setMoney(u.getMoney()+o.getPrice());
+                    userRepository.save(u);
+                    orderRepository.save(o);
+                }
+            }
+            groupbuyRepository.save(gb);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean earlyEnd(Integer groupBuyId) {
+        Groupbuy gb = groupbuyRepository.findByGroupBuyId(groupBuyId);
+        if(gb.getStatus() == 1) {
+            gb.setStatus(0);
+            groupbuyRepository.save(gb);
+            return true;
+        }
+       return false;
+    }
+
+    @Override
+    public Map<String, Object> getGroupBuyInfo(Integer groupBuyId) {
+        Groupbuy gb = groupbuyRepository.findByGroupBuyId(groupBuyId);
+        Map<String ,Object> rMap = new HashMap<>();
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Timestamp startTime = gb.getStartTime();
+        Timestamp endTime = gb.getEndTime();
+        String startDate = formatter.format(startTime);
+        String endDate = formatter.format(endTime);
+
+        List<Map<String,Object>> goods = new ArrayList<>();
+        List<Groupbuyitem> gbiList = gb.getGroupbuyitems();
+        for(Groupbuyitem gbi : gbiList) {
+            Map<String, Object> map = new HashMap<>();
+            Good g = gbi.getGoods();
+            map.put("name",g.getName());
+            map.put("goods_des",g.getDescription());
+            List<String> image = new ArrayList<>();
+            image.add(g.getImages());
+            map.put("image",image);
+            map.put("selling_price",g.getPrice());
+            map.put("inventory",gbi.getInventory());
+            map.put("cost_price",gbi.getCost());
+            map.put("iskill",gbi.getIsSecKill());
+            goods.add(map);
+        }
+        rMap.put("title",gb.getTitle());
+        rMap.put("description",gb.getDescription());
+        rMap.put("curNow",gb.getLogisticsType());
+        rMap.put("startDate",startDate);
+        rMap.put("endDate",endDate);
+        rMap.put("goods",goods);
+        return rMap;
+    }
+
+    @Override
+    public boolean ModifyGroupBuy(ModifiedGroupBuy modifiedGroupBuy) {
+        Groupbuy groupbuy = groupbuyRepository.findByGroupBuyId(modifiedGroupBuy.getGroupBuyId());
+        groupbuy.setTitle(modifiedGroupBuy.getTitle());
+        groupbuy.setDescription(modifiedGroupBuy.getDescription());
+        groupbuy.setLogisticsType(modifiedGroupBuy.getLogisticsType());
+        groupbuy.setStartTime(Timestamp.valueOf(modifiedGroupBuy.getStartTime()));
+        groupbuy.setEndTime(Timestamp.valueOf(modifiedGroupBuy.getEndTime()));
+
+        List<Groupbuyitem> gbiList = groupbuy.getGroupbuyitems();    //将原有的GroupBuyItem和goods删除
+        for(Groupbuyitem gbi: gbiList) {
+            Good g = gbi.getGoods();
+            groupbuyitemRepository.delete(gbi);
+            goodRepository.delete(g);
+        }
+        List<Groupbuyitem> groupbuyitems = new ArrayList<>();
+        List<ModifiedGoods> goodslist = modifiedGroupBuy.getGoodList();
+
+        for(ModifiedGoods item:goodslist){
+            Good good = new Good(item.getName(),item.getGoods_des(),item.getSelling_price(),item.getImage().get(0));
+            goodRepository.save(good);
+            groupbuyitems.add(new Groupbuyitem(good,item.getInventory(),item.getCost_price(),item.isIskill()));
+        }
+        for(Groupbuyitem gbi:groupbuyitems){
+            gbi.setId(new GroupbuyitemId(groupbuy.getId(),gbi.getGoods().getId()));
+            gbi.setGroupBuy(groupbuy);
+        }
+        groupbuyitemRepository.saveAll(groupbuyitems);
+
+        return true;
+    }
+    
     @Override
     public void addGroupbuy(Groupbuy groupbuy){groupbuyRepository.save(groupbuy);}
 

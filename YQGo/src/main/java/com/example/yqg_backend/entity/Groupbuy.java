@@ -1,5 +1,7 @@
 package com.example.yqg_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -7,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "groupbuy")
+@JsonIgnoreProperties({"user", "orders"})
 public class Groupbuy {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -19,6 +22,9 @@ public class Groupbuy {
     @Column(name = "description", length = 100)
     private String description;
 
+// logisticsType=0 ----- 用户自提
+// logisticsType=1 ----- 国内物流
+// logisticsType=2 ----- 国际物流
     @Column(name = "logisticsType")
     private Integer logisticsType;
 
@@ -40,6 +46,7 @@ public class Groupbuy {
 
 //    status=0 ----- 团购提前结束
 //    status=1 ----- 团购依据时间判断是否结束
+//    status=2 ----- 团购已删除
     @Column(name = "status")
     private Integer status;
 

@@ -1,6 +1,5 @@
 package com.example.yqg_backend.entity;
 
-
 import java.util.List;
 
 public class RequestGroupBuy {

@@ -1,15 +1,15 @@
 package com.example.yqg_backend.daoimpl;
 
-        import com.example.yqg_backend.dao.UserDao;
-        import com.example.yqg_backend.entity.User;
-        import com.example.yqg_backend.entity.Userauth;
-        import com.example.yqg_backend.repository.UserRepository;
-        import com.example.yqg_backend.repository.UserauthRepository;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.stereotype.Repository;
+import com.example.yqg_backend.dao.UserDao;
+import com.example.yqg_backend.entity.User;
+import com.example.yqg_backend.entity.Userauth;
+import com.example.yqg_backend.repository.UserRepository;
+import com.example.yqg_backend.repository.UserauthRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-        import java.util.HashMap;
-        import java.util.Map;
+import java.util.HashMap;
+import java.util.Map;
 
 @Repository
 public class UserDaoImpl implements UserDao {

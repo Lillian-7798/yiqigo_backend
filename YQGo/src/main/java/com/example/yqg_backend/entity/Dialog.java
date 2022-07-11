@@ -1,11 +1,14 @@
 package com.example.yqg_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "dialog")
+@JsonIgnoreProperties({"userId1", "userId2"})
 public class Dialog {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
