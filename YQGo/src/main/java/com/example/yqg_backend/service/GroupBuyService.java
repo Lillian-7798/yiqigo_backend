@@ -14,9 +14,11 @@ public interface GroupBuyService {
     void addGroupBuy(Integer userID, String title, String description, Integer logisticsType, Timestamp startTime,
                      Timestamp endTime, List<RequestGoods2> goodslist);
     List<Map<String, Object>> getUserGB(Integer uid);
-    Map<String, Object> getGroupBuyDetail(Integer groupBuyId);
+    Map<String, Object> getGroupBuyDetail(Integer groupBuyId,Integer userId);
 
     List<Map> searchGB(String keyword,String searchBy);
+
+    List<Map> getIndexGB(Integer userId);
     boolean deleteGroupBuy(Integer groupBuyId);
     boolean earlyEnd(Integer groupBuyId);
     Map<String, Object> getGroupBuyInfo(Integer groupBuyId);

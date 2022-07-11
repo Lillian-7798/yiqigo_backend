@@ -10,6 +10,8 @@ import com.example.yqg_backend.entity.User;
 import java.util.List;
 import java.util.Map;
 
+import java.util.Map;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -34,5 +36,11 @@ public class UserServiceImpl implements UserService {
     public Boolean addUser(String userName,String password){
         return userDao.addUser(userName,password);
     }
+
+    @Override
+    public boolean subscription(Integer lid,Integer mid){return userDao.subscription(lid,mid);}
+
+    @Override
+    public boolean cancelsubscription(Integer lid,Integer mid){return userDao.cancelsubscription(lid,mid);}
 
 }

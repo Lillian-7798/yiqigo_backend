@@ -14,4 +14,8 @@ public interface UserDao {
     Boolean checkUser(String userName,String password);
 
     Boolean addUser(String userName,String password);
+    boolean subscription(Integer lid,Integer mid);
+
+    boolean cancelsubscription(Integer lid,Integer mid);
 }
+

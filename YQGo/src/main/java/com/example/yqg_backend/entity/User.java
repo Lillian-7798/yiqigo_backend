@@ -119,5 +119,23 @@ public class User {
     public void setMoney(Integer money) {
         this.money = money;
     }
+
+    public void setLeaders(List<User> leaders) {
+        this.leaders = leaders;
+    }
+
+    public void setMembers(List<User> members) {
+        this.members = members;
+    }
+
+    public List<User> getMembers() {
+        return members;
+    }
+
+    public List<User> getLeaders() {
+        return leaders;
+    }
+
+
     //TODO [JPA Buddy] generate columns from DB
 }

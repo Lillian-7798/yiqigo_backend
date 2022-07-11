@@ -1,9 +1,8 @@
 package com.example.yqg_backend.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "userauth")
@@ -17,7 +16,6 @@ public class Userauth {
 
     @Column(name = "password", length = 20)
     private String password;
-
     public Integer getId() {
         return id;
     }

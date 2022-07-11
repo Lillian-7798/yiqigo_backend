@@ -25,8 +25,8 @@ public class GroupBuyController {
     }
 
     @RequestMapping(value = "/getGroupBuyDetail",method = RequestMethod.GET)
-    public Map<String, Object> getGroupBuyDetail(@RequestParam("groupBuyId") Integer groupBuyId){
-        return groupBuyService.getGroupBuyDetail(groupBuyId);
+    public Map<String, Object> getGroupBuyDetail(@RequestParam("groupBuyId") Integer groupBuyId,@RequestParam("userId") Integer userId){
+        return groupBuyService.getGroupBuyDetail(groupBuyId,userId);
     }
 
     @RequestMapping(value = "/addGroupBuy",method = RequestMethod.POST)
@@ -113,6 +113,12 @@ public class GroupBuyController {
 
     @RequestMapping(value = "/searchGB",method = RequestMethod.GET)
     public List<Map> searchGB(@RequestParam("keyword") String keyword,@RequestParam("searchBy") String searchBy){
-        System.out.println("search GB!");
+//        System.out.println("search GB!");
         return groupBuyService.searchGB(keyword,searchBy   );}
+
+    @RequestMapping(value = "getIndexGB",method = RequestMethod.GET)
+    public List<Map> getIndexGB(@RequestParam("userId") Integer userId){
+//        System.out.println("getIndexGB");
+        return groupBuyService.getIndexGB(userId);
+    }
 }

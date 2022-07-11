@@ -81,4 +81,31 @@ public class UserDaoImpl implements UserDao {
     public void updateUser(User user) {
         userRepository.save(user);
     }
+
+    @Override
+    public boolean subscription(Integer lid,Integer mid){
+        if(lid==mid) return false;
+        else {
+            User leader = userRepository.getUserById(lid);
+            User member = userRepository.getUserById(mid);
+            member.getLeaders().add(leader);
+            userRepository.save(member);
+            leader.getMembers().add(member);
+            userRepository.save(leader);
+            return true;
+        }
+    }
+
+    @Override
+    public boolean cancelsubscription(Integer lid,Integer mid){
+        if(lid==mid) return false;
+        else{
+            User leader = userRepository.getUserById(lid);
+            User member = userRepository.getUserById(mid);
+            member.getLeaders().remove(leader);
+            userRepository.save(member);
+            return true;
+        }
+    }
 }
+
