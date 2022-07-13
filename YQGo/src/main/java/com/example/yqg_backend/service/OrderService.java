@@ -19,4 +19,13 @@ public interface OrderService {
     int addOrder(RequestOrder requestOrder);
 
     boolean cancelOrder(Integer orderId);
+    // return > 0 --- 正常，返回orderId.
+    //                 这种情况下，后端分配跟团号，对于秒杀商品确定其是否符合秒杀要求
+    // return = -1 --- 库存不足
+    int lockOrder(RequestOrder requestOrder);
+
+    //return true: 支付成功
+    //return false: 支付失败（用户余额不足）
+    boolean pay(Integer orderID);
+    boolean cancelByUser(Integer orderID);
 }

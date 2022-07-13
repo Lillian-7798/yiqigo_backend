@@ -15,4 +15,6 @@ public interface OrderDao {
 
     Map<String,Object> getOrderDetail(Integer orderID);
     boolean cancelOrder(Integer orderId);
+    boolean pay(Integer orderID);
+    boolean cancelByUser(Integer orderID);
 }

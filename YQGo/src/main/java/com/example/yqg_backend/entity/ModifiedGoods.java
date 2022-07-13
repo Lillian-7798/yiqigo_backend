@@ -9,6 +9,25 @@ public class ModifiedGoods {
     private Integer selling_price;
     private Integer inventory;
     private Integer cost_price;
+    private Integer kill_num;
+    private Integer kill_price;
+
+    public Integer getKill_num() {
+        return kill_num;
+    }
+
+    public void setKill_num(Integer kill_num) {
+        this.kill_num = kill_num;
+    }
+
+    public Integer getKill_price() {
+        return kill_price;
+    }
+
+    public void setKill_price(Integer kill_price) {
+        this.kill_price = kill_price;
+    }
+
     private boolean iskill;
 
     public String getName() {

@@ -30,12 +30,48 @@ public class Groupbuyitem {
     @Column(name = "isSecKill")
     private Boolean isSecKill;
 
+    @Column(name = "killNum")
+    private Integer killNum;
+
+    @Column(name = "soldNum")
+    private Integer soldNum;
+
+    @Column(name = "killPrice")
+    private Integer killPrice;
+
+    public Integer getKillNum() {
+        return killNum;
+    }
+
+    public void setKillNum(Integer killNum) {
+        this.killNum = killNum;
+    }
+
+    public Integer getSoldNum() {
+        return soldNum;
+    }
+
+    public void setSoldNum(Integer soldNum) {
+        this.soldNum = soldNum;
+    }
+
+    public Integer getKillPrice() {
+        return killPrice;
+    }
+
+    public void setKillPrice(Integer killPrice) {
+        this.killPrice = killPrice;
+    }
+
     public Groupbuyitem(){}
-    public Groupbuyitem(Good good,Integer inventory,Integer cost,Boolean isSecKill){
+    public Groupbuyitem(Good good,Integer inventory,Integer cost,Boolean isSecKill, Integer killPrice, Integer killNum){
         this.goods=good;
         this.inventory=inventory;
         this.cost=cost;
         this.isSecKill=isSecKill;
+        this.killNum = killNum;
+        this.killPrice = killPrice;
+        this.setSoldNum(0);
     }
 
     public GroupbuyitemId getId() {
