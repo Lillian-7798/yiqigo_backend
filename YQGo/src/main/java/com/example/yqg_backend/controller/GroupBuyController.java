@@ -1,6 +1,7 @@
 package com.example.yqg_backend.controller;
 
 import com.example.yqg_backend.config.UploadUtils;
+import com.example.yqg_backend.entity.ModifiedGroupBuy;
 import com.example.yqg_backend.entity.Order;
 import com.example.yqg_backend.entity.RequestGoods2;
 import com.example.yqg_backend.entity.RequestGroupBuy;
@@ -57,12 +58,30 @@ public class GroupBuyController {
 
     @RequestMapping(value = "/deleteGroupBuy")
     public boolean deleteGroupBuy(@RequestParam("groupBuyId") Integer groupBuyId) {
-        return true;
+        if(groupBuyService.deleteGroupBuy(groupBuyId))
+            return true;
+        return false;
     }
 
-    @RequestMapping("endGroupBuy")
-    public boolean endGroupBuy(@RequestParam("groupBuyId") Integer groupBuyId) {
-        return true;
+    @RequestMapping(value = "/getGroupBuyInfo",method = RequestMethod.GET)
+    public Map<String, Object> getGroupBuyInfo(@RequestParam("GroupBuyId") Integer GroupBuyId){
+        return groupBuyService.getGroupBuyInfo(GroupBuyId);
+    }
+
+    @RequestMapping(value = "/ModifyGroupBuy",method = RequestMethod.POST)
+    public boolean ModifyGroupBuy(@RequestBody ModifiedGroupBuy modifiedGroupBuy)
+    {
+        System.out.println("here");
+        if(groupBuyService.ModifyGroupBuy(modifiedGroupBuy))
+            return true;
+        return false;
+    }
+
+    @RequestMapping(value = "/earlyEnd")
+    public boolean earlyEnd(@RequestParam("groupBuyId") Integer groupBuyId) {
+        if(groupBuyService.earlyEnd(groupBuyId))
+            return true;
+        return false;
     }
 
     @RequestMapping(value = "/updateGroupBuyInventory")
@@ -99,8 +118,7 @@ public class GroupBuyController {
     @RequestMapping("/api/uploadImage")
     public static String uploadImg(HttpServletRequest request,@RequestParam("file")MultipartFile [] files){
 //        System.out.println(files.length);
-        UploadUtils uploadUtils = new UploadUtils();
-        return uploadUtils.upload(files[0]);
+        return UploadUtils.upload(files[0]);
     }
 
     @RequestMapping("/api/deleteImg")
