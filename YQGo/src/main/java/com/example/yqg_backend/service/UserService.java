@@ -19,4 +19,6 @@ public interface UserService {
 
     boolean cancelsubscription(Integer lid,Integer mid);
 
+    boolean updateUser(Integer userID,String name,String mobile,String address);
+
 }
