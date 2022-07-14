@@ -1,12 +1,15 @@
 package com.example.yqg_backend.controller;
 
+import com.example.yqg_backend.config.UploadUtils;
 import com.example.yqg_backend.entity.ModifiedGroupBuy;
 import com.example.yqg_backend.entity.Order;
 import com.example.yqg_backend.entity.RequestGroupBuy;
 import com.example.yqg_backend.service.GroupBuyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
@@ -95,5 +98,17 @@ public class GroupBuyController {
     public List<Map> getIndexGB(@RequestParam("userId") Integer userId){
 //        System.out.println("getIndexGB");
         return groupBuyService.getIndexGB(userId);
+    }
+
+    @RequestMapping("/api/uploadImage")
+    public static String uploadImg(HttpServletRequest request, @RequestParam("file") MultipartFile[] files){
+//        System.out.println(files.length);
+        return UploadUtils.upload(files[0]);
+    }
+
+    @RequestMapping("/api/deleteImg")
+    public boolean deleteImg(@RequestParam("url") String url){
+        UploadUtils uploadUtils = new UploadUtils();
+        return uploadUtils.delete(url);
     }
 }
