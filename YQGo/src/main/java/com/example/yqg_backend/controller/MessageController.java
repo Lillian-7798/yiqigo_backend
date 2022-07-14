@@ -1,16 +1,22 @@
 package com.example.yqg_backend.controller;
 
 import com.example.yqg_backend.entity.Dialog;
+import com.example.yqg_backend.service.DialogService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
 public class MessageController {
+    @Autowired
+    private DialogService dialogService;
+
     @RequestMapping(value = "/getDialogsByUser",method = RequestMethod.GET)
-    public List<Dialog> getDialogsByUser(@RequestParam("userID") Integer userID){
-        return null;
+    public List<Map<String, Object>> getDialogsByUser(@RequestParam("userID") Integer userID){
+        return dialogService.getDialogsByUser(userID);
     }
 
     @RequestMapping(value = "/getDialog",method = RequestMethod.GET)

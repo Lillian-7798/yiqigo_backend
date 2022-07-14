@@ -3,6 +3,7 @@ package com.example.yqg_backend.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,17 @@ public class Dialog {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId2")
     private User userId2;
+
+    @Column(name = "latestDate")
+    private Timestamp latestDate;
+
+    public Timestamp getLatestDate() {
+        return latestDate;
+    }
+
+    public void setLatestDate(Timestamp latestDate) {
+        this.latestDate = latestDate;
+    }
 
     @OneToMany(mappedBy = "dialog")
     private List<Message> messages = new ArrayList<>();
