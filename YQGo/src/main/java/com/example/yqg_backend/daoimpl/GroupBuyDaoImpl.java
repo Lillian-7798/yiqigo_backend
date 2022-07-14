@@ -86,21 +86,23 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
         map.put("storeId",gb.getUser().getId());
         map.put("groupName", gb.getTitle());
         map.put("loType", gb.getLogisticsType());
-        /*
-        Integer loType = gb.getLogisticsType();
-        String mode = "用户自提";   //loType == 0
-        if(loType == 1)
-            mode = "国内物流";
-        else if(loType == 2)
-            mode = "国际物流";
-        map.put("mode", mode);
-        */
-
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Timestamp startTime = gb.getStartTime();
+        Timestamp endTime = gb.getEndTime();
+        Timestamp current = new Timestamp(System.currentTimeMillis());
+        Integer sta = gb.getStatus();
+        String status = "已结束";
+        if(sta == 0)
+            status = "提前结束";
+        else if(endTime.getTime() >= current.getTime() && sta==1)
+            status = "正在抢购中";
+        else if(startTime.getTime() > current.getTime() && sta==1)
+            status = "未开始";
+        else if(sta==2)
+            status = "已删除";
+        map.put("status", status);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String fStartTime = formatter.format(startTime);
         String st = "开始时间: "+fStartTime;
-        Timestamp endTime = gb.getEndTime();
         String fEndTime = formatter.format(endTime);
         String et = "结束时间: "+fEndTime;
         map.put("start_time", st);
@@ -314,31 +316,41 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
     public List<Map> getIndexGB(Integer userId){
         List<Map> re = new ArrayList<>();
         User user = userRepository.getUserById(userId);
-        Timestamp now = new Timestamp(System.currentTimeMillis());
-        //先获取订阅的团购信息,考虑到可能存在大量信息的问题，这里只获取未结束的团购
+
         for(User leaders:user.getLeaders()){
-            for (Groupbuy groupbuy:leaders.getGroupbuys()){
-                if(groupbuy.getStatus()!=0&&groupbuy.getEndTime().getTime()>now.getTime()) {
-                    Map<String,Object> map = new HashMap<>();
-                    map.put("id",groupbuy.getId());
-                    map.put("user_id",groupbuy.getUser().getId());
-                    map.put("username",groupbuy.getUser().getName());
-                    map.put("title",groupbuy.getTitle());
-                    map.put("issubscription",true);
-                    if(groupbuy.getStartTime().getTime()>now.getTime()) map.put("status","正在抢购中");
-                    else{map.put("status","未开始");}
-                    Integer price = 1000;
-                    List<String> url=new ArrayList<>();
-                    for(Groupbuyitem it:groupbuy.getGroupbuyitems()){
-                        url.add(it.getGoods().getImages());
-                        if(it.getGoods().getPrice()<price){
-                            price=it.getGoods().getPrice();
-                        }
+            for (Groupbuy groupbuy:leaders.getGroupbuys()) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("id", groupbuy.getId());
+                map.put("user_id", groupbuy.getUser().getId());
+                map.put("username", groupbuy.getUser().getName());
+                map.put("title", groupbuy.getTitle());
+                map.put("issubscription", true);
+                Timestamp startTime = groupbuy.getStartTime();
+                Timestamp endTime = groupbuy.getEndTime();
+                Timestamp current = new Timestamp(System.currentTimeMillis());
+                Integer sta = groupbuy.getStatus();
+                String status = "已结束";
+                if(sta == 0)
+                    status = "提前结束";
+                else if(endTime.getTime() >= current.getTime() && sta==1)
+                    status = "正在抢购中";
+                else if(startTime.getTime() > current.getTime() && sta==1)
+                    status = "未开始";
+                else if(sta==2)
+                    status = "已删除";
+                map.put("status", status);
+
+                Integer price = 1000;
+                List<String> url = new ArrayList<>();
+                for (Groupbuyitem it : groupbuy.getGroupbuyitems()) {
+                    url.add(it.getGoods().getImages());
+                    if (it.getGoods().getPrice() < price) {
+                        price = it.getGoods().getPrice();
                     }
-                    map.put("urls",url);
-                    map.put("price",price);
-                    re.add(map);
                 }
+                map.put("urls", url);
+                map.put("price", price);
+                re.add(map);
             }
         }
         return re;

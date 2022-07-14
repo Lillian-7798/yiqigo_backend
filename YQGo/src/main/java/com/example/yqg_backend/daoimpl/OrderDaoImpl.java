@@ -162,8 +162,9 @@ public class OrderDaoImpl implements OrderDao {
             Integer count = o.getCount();
             Integer number = o.getNumber();
             Integer price = o.getPrice();
-            Timestamp time = o.getTime();
-
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Timestamp payTime = o.getTime();
+            String time = formatter.format(payTime);
             Groupbuy gb = o.getGroupBuy();
             User leader = gb.getUser();
             String LeaderName = leader.getName();
