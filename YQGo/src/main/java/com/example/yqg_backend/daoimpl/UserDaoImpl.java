@@ -25,6 +25,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public Userauth getUserauth(Integer userId) {
+      return userauthRepository.getUserauthById(userId);
+    }
+
+    @Override
     public Map<String,Object> getUser2(Integer userId) {
         User u=userRepository.getUserById(userId);
         Integer id=u.getId();
@@ -80,6 +85,11 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void updateUser(User user) {
         userRepository.save(user);
+    }
+
+    @Override
+    public void updateUserauth(Userauth userauth) {
+        userauthRepository.save(userauth);
     }
 
     @Override
