@@ -49,6 +49,22 @@ public class OrderController {
         return orderService.addOrder(requestOrder);
     }
 
+    @RequestMapping(value = "/Pay")
+    public boolean pay(@RequestParam("orderID") Integer orderID){
+        return orderService.pay(orderID);
+    }
+
+    @RequestMapping(value = "/cancelByUser")
+    public boolean cancelByUser(@RequestParam("orderID") Integer orderID){
+        return orderService.cancelByUser(orderID);
+    }
+
+    // RequestOrder为前端发送的请求内容
+    @RequestMapping(value = "/lockOrder",method = RequestMethod.POST)
+    public int lockOrder(@RequestBody RequestOrder requestOrder){
+        return orderService.lockOrder(requestOrder);
+    }
+
     @RequestMapping(value = "/getOrdersByGroupBuy",method = RequestMethod.GET)
     public List<Order> getOrdersByGroupBuy(@RequestParam("GroupBuyID") Integer GBID){
         return null;

@@ -40,7 +40,7 @@ public class GroupBuyServiceImpl implements GroupBuyService {
         for(RequestGoods2 item:goodslist){
             Good good = new Good(item.getName(),item.getGoods_des(),item.getSelling_price(),item.getImage().get(0));
             goodDao.addGood(good);
-            groupbuyitems.add(new Groupbuyitem(good,item.getInventory(),item.getCost_price(),item.isIskill()));
+            groupbuyitems.add(new Groupbuyitem(good,item.getInventory(),item.getCost_price(),item.isIskill(),item.getKill_price(),item.getKill_num()));
         }
         for(Groupbuyitem Gitem:groupbuyitems){
             Gitem.setId(new GroupbuyitemId(groupbuy.getId(),Gitem.getGoods().getId()));

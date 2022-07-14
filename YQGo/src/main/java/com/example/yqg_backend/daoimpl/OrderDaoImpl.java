@@ -4,6 +4,7 @@ import com.example.yqg_backend.dao.OrderDao;
 import com.example.yqg_backend.entity.*;
 import com.example.yqg_backend.repository.GroupbuyRepository;
 import com.example.yqg_backend.entity.Order;
+import com.example.yqg_backend.repository.GroupbuyitemRepository;
 import com.example.yqg_backend.repository.OrderRepository;
 import com.example.yqg_backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class OrderDaoImpl implements OrderDao {
 
     @Autowired
     private GroupbuyRepository groupbuyRepository;
+
+    @Autowired
+    private GroupbuyitemRepository groupbuyitemRepository;
 
     @Override
     public Map<String, Object> getOrderByLeader(Integer groupBuyId) {
@@ -177,6 +181,7 @@ public class OrderDaoImpl implements OrderDao {
             }
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("id",id);
+            map.put("groupBuyId", gb.getId());
             map.put("count",count);
             map.put("number",number);
             map.put("price",price);
@@ -200,7 +205,10 @@ public class OrderDaoImpl implements OrderDao {
         Integer count = o.getCount();
         Integer number = o.getNumber();
         Integer price = o.getPrice();
-        Timestamp time = o.getTime();
+        //Timestamp time = o.getTime();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Timestamp payTime = o.getTime();
+        String time = formatter.format(payTime);
         Integer status=o.getStatus();
         User u=o.getUser();
         String userName = u.getName();
@@ -234,6 +242,7 @@ public class OrderDaoImpl implements OrderDao {
         map.put("note", note);
         map.put("count",count);
         map.put("number",number);
+        map.put("discount",o.getDiscount());
         map.put("price",price);
         map.put("time",time);
         map.put("userName",userName);
@@ -254,6 +263,62 @@ public class OrderDaoImpl implements OrderDao {
             u.setMoney(u.getMoney() + price);
             userRepository.save(u);
             orderRepository.save(o);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean pay(Integer orderID) {
+        Order o = orderRepository.getById(orderID);
+        User u = o.getUser();
+        Integer totalPrice = o.getPrice();
+        if(u.getMoney() < totalPrice) {
+            List<Groupbuyitem> gbiList = o.getGroupBuy().getGroupbuyitems();
+            List<Orderitem> oiList = o.getOrderitems();
+            for(Orderitem oi: oiList) {
+                Good g = oi.getGoods();
+                for(Groupbuyitem gbi: gbiList) {
+                    if(gbi.getGoods().getId() == g.getId())  {
+                        gbi.setInventory(gbi.getInventory() + oi.getCount());
+                        gbi.setSoldNum(gbi.getSoldNum() - oi.getCount());
+                    }
+                }
+            }
+            o.setStatus(5);
+            orderRepository.save(o);
+            groupbuyitemRepository.saveAll(gbiList);
+            return false;
+        }
+        else {
+            u.setMoney(u.getMoney() - totalPrice);
+            o.setStatus(0);
+            o.setTime(new Timestamp(System.currentTimeMillis()));
+            userRepository.save(u);
+            orderRepository.save(o);
+            return true;
+        }
+    }
+
+    @Override
+    public boolean cancelByUser(Integer orderID) {
+        Order o = orderRepository.getById(orderID);
+        if(true) {
+            Groupbuy gb = o.getGroupBuy();
+            List<Groupbuyitem> gbiList = gb.getGroupbuyitems();
+            List<Orderitem> oiList = o.getOrderitems();
+            for(Orderitem oi: oiList) {
+                Good g = oi.getGoods();
+                for(Groupbuyitem gbi: gbiList) {
+                    if(gbi.getGoods().getId() == g.getId()) {
+                        gbi.setInventory(gbi.getInventory() + oi.getCount());
+                        gbi.setSoldNum(gbi.getSoldNum() - oi.getCount());
+                    }
+                }
+            }
+            o.setStatus(5);
+            orderRepository.save(o);
+            groupbuyitemRepository.saveAll(gbiList);
             return true;
         }
         return false;

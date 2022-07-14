@@ -7,7 +7,6 @@ public class RequestOrder {
     private Integer groupBuyId;
     private Integer logisticsType;
     private String note;
-
     private List<RequestGoods> goods;
 
     public Integer getUserId() {

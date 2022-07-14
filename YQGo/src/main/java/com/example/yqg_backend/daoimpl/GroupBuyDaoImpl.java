@@ -67,6 +67,7 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
 
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("GroupBuyId", GroupBuyId);
+            map.put("userName",u.getName());
             map.put("title", title);
             map.put("price", minPrice);
             map.put("status", status);
@@ -119,6 +120,11 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
             m.put("inventory",gbi.getInventory());
             Integer number = 0;
             m.put("number", number);
+            m.put("isKill",gbi.getIsSecKill());
+            if(gbi.getIsSecKill()) {
+                m.put("killNum",gbi.getKillNum());
+                m.put("killPrice", gbi.getKillPrice());
+            }
             goods_list.add(m);
         }
         map.put("goods_list", goods_list);
@@ -144,6 +150,7 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
                 Integer price =new Integer(1000);
                 map.put("id",item.getId());
                 map.put("username",item.getUser().getName());
+                map.put("userId",item.getUser().getId());
                 map.put("title",item.getTitle());
                 List<String> url=new ArrayList<>();
                 for(Groupbuyitem it:item.getGroupbuyitems()){
@@ -177,6 +184,7 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
                 Integer price =new Integer(200);
                 map.put("id",item.getId());
                 map.put("username",item.getUser().getName());
+                map.put("userId",item.getUser().getId());
                 map.put("title",item.getTitle());
                 List<String> url=new ArrayList<>();
                 for(Groupbuyitem it:item.getGroupbuyitems()){
@@ -254,6 +262,8 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
             map.put("inventory",gbi.getInventory());
             map.put("cost_price",gbi.getCost());
             map.put("iskill",gbi.getIsSecKill());
+            map.put("kill_num", gbi.getKillNum());
+            map.put("kill_price", gbi.getKillPrice());
             goods.add(map);
         }
         rMap.put("title",gb.getTitle());
@@ -286,7 +296,7 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
         for(ModifiedGoods item:goodslist){
             Good good = new Good(item.getName(),item.getGoods_des(),item.getSelling_price(),item.getImage().get(0));
             goodRepository.save(good);
-            groupbuyitems.add(new Groupbuyitem(good,item.getInventory(),item.getCost_price(),item.isIskill()));
+            groupbuyitems.add(new Groupbuyitem(good,item.getInventory(),item.getCost_price(),item.isIskill(),item.getKill_price(),item.getKill_num()));
         }
         for(Groupbuyitem gbi:groupbuyitems){
             gbi.setId(new GroupbuyitemId(groupbuy.getId(),gbi.getGoods().getId()));
@@ -308,7 +318,7 @@ public class GroupBuyDaoImpl implements GroupBuyDao {
         //先获取订阅的团购信息,考虑到可能存在大量信息的问题，这里只获取未结束的团购
         for(User leaders:user.getLeaders()){
             for (Groupbuy groupbuy:leaders.getGroupbuys()){
-                if(groupbuy.getStatus()!=0&&groupbuy.getEndTime().getTime()>now.getTime()){
+                if(groupbuy.getStatus()!=0&&groupbuy.getEndTime().getTime()>now.getTime()) {
                     Map<String,Object> map = new HashMap<>();
                     map.put("id",groupbuy.getId());
                     map.put("user_id",groupbuy.getUser().getId());

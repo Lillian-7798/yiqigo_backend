@@ -40,10 +40,23 @@ public class Order {
     @Column(name = "time")
     private Timestamp time;
 
-// status=0 ----- 已支付
-// status=1 ----- 运输中
-// status=2 ----- 已提货
-// status=3 ----- 已退款
+    @Column(name = "discount")
+    private Integer discount;
+
+    public Integer getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Integer discount) {
+        this.discount = discount;
+    }
+
+    // status=0 ----- 已支付
+    // status=1 ----- 运输中
+    // status=2 ----- 已提货
+    // status=3 ----- 已退款
+    // status=4 ----- 待支付
+    // status=5 ----- 已取消
     @Column(name = "status")
     private Integer status;
 
