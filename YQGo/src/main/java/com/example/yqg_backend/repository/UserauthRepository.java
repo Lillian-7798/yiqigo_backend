@@ -8,4 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 public interface UserauthRepository extends JpaRepository<Userauth, Integer> {
     @Query("select u from Userauth u where u.username=:userName")
     Userauth getUserauthByName(String userName);
+
+    @Query("select u from Userauth u where u.id=:id")
+    Userauth getUserauthById(Integer id);
 }

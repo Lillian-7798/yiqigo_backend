@@ -24,9 +24,6 @@ public class Dialog {
     @JoinColumn(name = "userId2")
     private User userId2;
 
-    @OneToMany(mappedBy = "dialog")
-    private List<Message> messages = new ArrayList<>();
-
     @Column(name = "latestDate")
     private Timestamp latestDate;
 
@@ -37,6 +34,9 @@ public class Dialog {
     public void setLatestDate(Timestamp latestDate) {
         this.latestDate = latestDate;
     }
+
+    @OneToMany(mappedBy = "dialog")
+    private List<Message> messages = new ArrayList<>();
 
     public List<Message> getMessages() {
         return messages;

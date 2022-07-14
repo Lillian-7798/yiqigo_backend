@@ -3,8 +3,11 @@ package com.example.yqg_backend.controller;
 import com.example.yqg_backend.config.UploadUtils;
 import com.example.yqg_backend.entity.ModifiedGroupBuy;
 import com.example.yqg_backend.entity.Order;
+import com.example.yqg_backend.entity.RequestGoods2;
 import com.example.yqg_backend.entity.RequestGroupBuy;
 import com.example.yqg_backend.service.GroupBuyService;
+import com.sun.net.httpserver.Authenticator;
+import org.jboss.jandex.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -101,7 +104,7 @@ public class GroupBuyController {
     }
 
     @RequestMapping("/api/uploadImage")
-    public static String uploadImg(HttpServletRequest request, @RequestParam("file") MultipartFile[] files){
+    public static String uploadImg(HttpServletRequest request,@RequestParam("file")MultipartFile [] files){
 //        System.out.println(files.length);
         return UploadUtils.upload(files[0]);
     }
