@@ -19,7 +19,7 @@ public class Good {
     @Column(name = "price")
     private Integer price;
 
-    @Column(name = "images", length = 50)
+    @Column(name = "images", length = 200)
     private String images;
 
     public Good(){}
