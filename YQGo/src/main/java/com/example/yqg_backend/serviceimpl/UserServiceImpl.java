@@ -2,6 +2,7 @@ package com.example.yqg_backend.serviceimpl;
 
 import com.example.yqg_backend.dao.UserDao;
 import com.example.yqg_backend.entity.Order;
+import com.example.yqg_backend.entity.Userauth;
 import com.example.yqg_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,5 +43,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean cancelsubscription(Integer lid,Integer mid){return userDao.cancelsubscription(lid,mid);}
+
+    @Override
+    public boolean updateUser(Integer userID,String name,String mobile,String address) {
+        Map<String,Object> m=getUser(userID);
+        User u=new User();
+        Map<String,Object> m1=getUserByName(name);
+        Userauth ua=userDao.getUserauth(userID);
+        if (m1!=null && m1.get("id")!=userID) return false;
+        u.setId(userID);
+        u.setName(name);
+        u.setMobile(mobile);
+        u.setAddress(address);
+        u.setMoney((Integer) m.get("money"));
+        ua.setUsername(name);
+        userDao.updateUser(u);
+        userDao.updateUserauth(ua);
+        return true;
+    }
 
 }

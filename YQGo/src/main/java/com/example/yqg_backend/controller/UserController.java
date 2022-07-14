@@ -37,8 +37,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/updateUser",method = RequestMethod.POST)
-    public boolean updateUseer(@RequestParam("userID") String userID,@RequestParam("address") String address){
-        return true;
+    public boolean updateUser(@RequestBody Map map){
+        return userService.updateUser((Integer) map.get("userID"),(String) map.get("name"),(String) map.get("mobile"),(String) map.get("address"));
     }
 
     @RequestMapping(value = "/subscription",method = RequestMethod. GET)
